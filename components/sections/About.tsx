@@ -41,12 +41,12 @@ export function About() {
   return (
     <section
       id="about"
-      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+      className="pt-[160px] pb-20 max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
       {/* Eyebrow + heading */}
       <div className="grid grid-cols-12 gap-x-8 max-[1024px]:grid-cols-1">
         <div className="col-span-3 max-[1024px]:col-span-1 max-[1024px]:mb-8 pt-2">
-          <SectionMarker number="01" label="About" />
+          <SectionMarker label="About" />
         </div>
         <LineReveal
           as="h2"
@@ -100,7 +100,7 @@ export function About() {
         >
           <EditorialImage
             src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80"
-            caption="(01) River North Mixed-Use · Chicago, 2024"
+            caption="River North Mixed-Use · Chicago, 2024"
             aspectRatio="4/5"
             alt="River North mixed-use project, Chicago, 2024"
           />
@@ -112,38 +112,14 @@ export function About() {
         >
           <EditorialImage
             src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80"
-            caption="(02) Logan Square Development · Chicago, 2023"
+            caption="Logan Square Development · Chicago, 2023"
             aspectRatio="4/5"
             alt="Logan Square development project, Chicago, 2023"
           />
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="mt-24 flex gap-16 max-[640px]:gap-8">
-        <div className="min-w-0">
-          <div
-            className="font-sans font-bold text-ink"
-            style={{ fontSize: "clamp(56px, 7.5vw, 96px)", letterSpacing: "-0.04em", lineHeight: 0.95 }}
-          >
-            <Counter target={4} />
-          </div>
-          <p className="body-md font-sans text-gray-600 mt-3">
-            Projects completed
-          </p>
-        </div>
-        <div className="min-w-0 border-l border-gray-200 pl-8 max-[640px]:pl-6">
-          <div
-            className="font-sans font-bold text-ink"
-            style={{ fontSize: "clamp(56px, 7.5vw, 96px)", letterSpacing: "-0.04em", lineHeight: 0.95 }}
-          >
-            <Counter target={5} />
-          </div>
-          <p className="body-md font-sans text-gray-600 mt-3">
-            In pre-development
-          </p>
-        </div>
-      </div>
+
     </section>
   );
 }

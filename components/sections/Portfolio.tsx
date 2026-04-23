@@ -173,8 +173,8 @@ export function Portfolio() {
   return (
     <section id="portfolio">
       {/* ── Intro — normal flow ─────────────────────────────────────── */}
-      <div className="pt-[160px] max-[640px]:pt-24 pb-14 max-[640px]:pb-10 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
-        <SectionMarker number="02" label="Select Portfolio" />
+      <div className="pt-20 max-[640px]:pt-24 pb-14 max-[640px]:pb-10 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
+        <SectionMarker label="Select Portfolio" />
         <div className="mt-8">
           <LineReveal
             as="h2"
@@ -246,16 +246,9 @@ export function Portfolio() {
           ))}
 
           {/* Top-left: section marker */}
-          <div className="absolute top-8 left-10 z-10 pointer-events-none">
-            <SectionMarker number="02" label="Select Portfolio" />
-          </div>
+            <SectionMarker label="Select Portfolio" />
 
-          {/* Top-right: slide counter */}
-          <div className="absolute top-8 right-10 z-10 pointer-events-none">
-            <span className="caption font-sans text-gray-600 uppercase tracking-[0.08em]">
-              <span ref={counterRef}>01</span>{" / 04"}
-            </span>
-          </div>
+
 
           {/* Right-center: vertical 4-segment progress bar */}
           <div className="absolute right-10 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-10 pointer-events-none">

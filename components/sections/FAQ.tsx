@@ -127,31 +127,18 @@ export function FAQ() {
       id="faq"
       className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
-      <SectionMarker number="05" label="Frequently Asked" />
+      <SectionMarker label="Frequently Asked" />
 
       {/* Title row */}
-      <div className="mt-12 grid grid-cols-12 gap-x-8 max-[1024px]:grid-cols-1">
+      <div className="mt-12">
         <LineReveal
           as="h2"
-          className="col-span-8 max-[1024px]:col-span-1 display-md font-sans font-bold text-ink"
+          className="display-md font-sans font-bold text-ink"
           stagger={0.08}
           duration={1.0}
         >
           The questions we hear most.
         </LineReveal>
-        <div className="col-start-9 col-span-4 max-[1024px]:col-start-1 max-[1024px]:col-span-1 max-[1024px]:mt-8 pt-1">
-          <LineReveal
-            as="p"
-            className="body-md font-sans text-gray-600 max-w-[340px]"
-            stagger={0.05}
-            duration={0.9}
-          >
-            Have a different question? Our team responds within one business day.
-          </LineReveal>
-          <div className="mt-5">
-            <TextButton href="/contact">Write to us</TextButton>
-          </div>
-        </div>
       </div>
 
       {/* Accordion */}
@@ -173,8 +160,8 @@ export function FAQ() {
 
       {/* Bottom CTA */}
       <div className="mt-28 max-[640px]:mt-16 flex flex-col items-center gap-5">
-        <p className="body-sm font-sans text-gray-400 uppercase tracking-[0.08em]">
-          Didn&apos;t find your answer?
+        <p className="body-md font-sans text-gray-600 text-center">
+          Have a different question? Our team responds within one business day.
         </p>
         <PillButton href="/contact">Contact our team</PillButton>
       </div>

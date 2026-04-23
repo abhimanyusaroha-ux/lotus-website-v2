@@ -49,7 +49,7 @@ export function Hero() {
 
         {/* Section marker */}
         <div className="mb-6">
-          <SectionMarker number="01" label="Home" />
+          <SectionMarker label="Home" />
         </div>
 
         {/* Wordmark — single line reveal */}
