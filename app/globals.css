@@ -38,6 +38,9 @@ body {
   z-index: 9999;
   will-change: transform;
 }
+@media (hover: none), (max-width: 1024px) {
+  #lotus-cursor { display: none; }
+}
 
 /* Focus visible — keyboard nav ring */
 :focus-visible {
