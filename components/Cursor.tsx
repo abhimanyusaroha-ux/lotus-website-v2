@@ -1,11 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 
 export function Cursor() {
+  const [enabled, setEnabled] = useState(false);
+
   useEffect(() => {
-    if (window.matchMedia("(hover: none)").matches) return;
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1025px)");
+    const update = () => setEnabled(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
 
     const cursor = document.getElementById("lotus-cursor");
     if (!cursor) return;
@@ -43,7 +53,8 @@ export function Cursor() {
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
     };
-  }, []);
+  }, [enabled]);
 
+  if (!enabled) return null;
   return <div id="lotus-cursor" aria-hidden="true" />;
 }
