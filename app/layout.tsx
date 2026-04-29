@@ -3,6 +3,8 @@ import { Inter, Cinzel, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Cursor } from "@/components/Cursor";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -77,7 +79,9 @@ export default function RootLayout({
       <body className="bg-canvas text-ink antialiased">
         <SmoothScroll />
         <Cursor />
+        <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );

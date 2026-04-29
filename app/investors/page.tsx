@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Navigation } from "@/components/Navigation";
 
 export const metadata: Metadata = {
   title: "Investor Portal · Lotus Property Group",
@@ -8,9 +7,7 @@ export const metadata: Metadata = {
 
 export default function Investors() {
   return (
-    <>
-      <Navigation />
-      <main className="min-h-screen bg-canvas flex flex-col items-center justify-center px-6">
+    <main className="min-h-screen bg-canvas flex flex-col items-center justify-center px-6">
         <p className="caption font-sans text-gray-600 uppercase mb-6">
           By invitation only
         </p>
@@ -34,7 +31,6 @@ export default function Investors() {
             ← Back to home
           </Link>
         </div>
-      </main>
-    </>
+    </main>
   );
 }

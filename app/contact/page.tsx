@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Navigation } from "@/components/Navigation";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,9 +11,7 @@ export default function Contact() {
   };
 
   return (
-    <>
-      <Navigation />
-      <main className="min-h-screen bg-canvas pt-[120px] pb-24 px-6">
+    <main className="min-h-screen bg-canvas pt-[120px] pb-24 px-6">
         <div className="max-w-[560px] mx-auto">
           <p className="caption font-sans text-gray-400 uppercase tracking-[0.08em] mb-6">
             Contact
@@ -109,7 +106,6 @@ export default function Contact() {
             </form>
           )}
         </div>
-      </main>
-    </>
+    </main>
   );
 }
