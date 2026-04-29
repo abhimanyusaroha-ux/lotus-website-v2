@@ -12,6 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
   { label: "Home", href: "/" },
+  // Home 1 / Home 2 typeface iterations — temporarily hidden per client request 2026-04-29.
+  // Pages still exist at /home-1 and /home-2 (direct URL access works); restore by uncommenting:
+  { label: "Home 1", href: "/home-1" },
+  { label: "Home 2", href: "/home-2" },
   { label: "About", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Investors", href: "/investors" },

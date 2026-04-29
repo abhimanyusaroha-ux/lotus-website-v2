@@ -6,7 +6,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { SectionMarker } from "../SectionMarker";
 import { EditorialImage } from "../EditorialImage";
 import { TextButton } from "../TextButton";
-import { Counter } from "../Counter";
 import LineReveal from "../LineReveal";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -41,7 +40,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="pt-[160px] pb-20 max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
       {/* Eyebrow + heading */}
       <div className="grid grid-cols-12 gap-x-8 max-[1024px]:grid-cols-1">
@@ -118,7 +117,6 @@ export function About() {
           />
         </div>
       </div>
-
 
     </section>
   );

@@ -1,12 +1,30 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import LineReveal from "../LineReveal";
 import { SectionMarker } from "../SectionMarker";
 
-export function Hero() {
+type HeroProps = {
+  fontLabel?: string;
+  fontDescription?: string;
+  wordmarkClassName?: string;
+  wordmarkStyle?: CSSProperties;
+};
+
+const defaultWordmarkStyle: CSSProperties = {
+  fontSize: "clamp(72px, 18vw, 260px)",
+  lineHeight: 0.85,
+  letterSpacing: "-0.055em",
+};
+
+export function Hero({
+  fontLabel,
+  fontDescription,
+  wordmarkClassName = "font-black",
+  wordmarkStyle,
+}: HeroProps = {}) {
   const wordmarkMaskRef = useRef<HTMLDivElement>(null);
   const wordmarkInnerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -52,16 +70,26 @@ export function Hero() {
           <SectionMarker label="Home" />
         </div>
 
+        {/* Font label — typeface specimen */}
+        {fontLabel && (
+          <div className="mb-3 flex items-baseline gap-3 flex-wrap">
+            <span className="caption font-sans text-ink uppercase tracking-[0.18em]">
+              Typeface · {fontLabel}
+            </span>
+            {fontDescription && (
+              <span className="caption font-sans text-gray-400 normal-case tracking-[0.02em]">
+                {fontDescription}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Wordmark — single line reveal */}
         <div ref={wordmarkMaskRef} style={{ overflow: "hidden" }}>
           <div
             ref={wordmarkInnerRef}
-            className="font-sans font-black text-ink"
-            style={{
-              fontSize: "clamp(72px, 18vw, 260px)",
-              lineHeight: 0.85,
-              letterSpacing: "-0.055em",
-            }}
+            className={`font-sans text-ink ${wordmarkClassName}`}
+            style={{ ...defaultWordmarkStyle, ...wordmarkStyle }}
             aria-label="Lotus"
           >
             Lotus

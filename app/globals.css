@@ -133,6 +133,31 @@ body {
   }
 }
 
+/* Orbit-spin keyframes — used by the About contextual card's circular CTA */
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.orbit {
+  animation: orbit-spin 8s linear infinite;
+}
+.group:hover .orbit {
+  animation-duration: 4s;
+}
+
+/* Light-weight font scope — used by home-1 to soften Instrument Sans */
+.lighter-weights .font-black,
+.lighter-weights .font-extrabold,
+.lighter-weights .font-bold {
+  font-weight: 500;
+}
+.lighter-weights .font-semibold {
+  font-weight: 400;
+}
+.lighter-weights .font-medium {
+  font-weight: 400;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
