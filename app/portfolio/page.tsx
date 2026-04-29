@@ -1,31 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { PortfolioPage } from "@/components/sections/PortfolioPage";
 
 export const metadata: Metadata = {
   title: "Portfolio · Lotus Property Group",
+  description:
+    "Lotus Property Group's portfolio of completed and in-development real estate projects across Chicago's core neighborhoods.",
 };
 
 export default function Portfolio() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-canvas flex flex-col items-center justify-center px-6">
-        <p className="caption font-sans text-gray-600 uppercase mb-6">
-          Coming soon
-        </p>
-        <h1 className="display-md font-sans font-bold text-ink text-center max-w-[480px]">
-          Portfolio
-        </h1>
-        <div className="mt-12">
-          <Link
-            href="/"
-            className="body-sm font-sans text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all duration-150"
-          >
-            ← Back to home
-          </Link>
-        </div>
+      <main>
+        <PortfolioPage />
       </main>
+      <Footer />
     </>
   );
 }
