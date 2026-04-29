@@ -33,7 +33,7 @@ export function WhyLotus() {
       <div className="mt-12 grid grid-cols-12 max-[1024px]:grid-cols-1">
         <LineReveal
           as="h2"
-          className="col-span-9 max-[1024px]:col-span-1 display-lg font-sans font-bold text-ink"
+          className="col-span-9 max-[1024px]:col-span-1 display-md font-sans font-bold text-ink"
           stagger={0.1}
           duration={1.1}
         >

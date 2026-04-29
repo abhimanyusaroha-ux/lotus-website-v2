@@ -500,14 +500,52 @@ export function PortfolioPage() {
             <div className="mt-2">
               <LineReveal
                 as="h1"
-                className="display-lg font-sans font-bold text-ink"
+                className="font-sans font-bold text-ink"
                 stagger={0.1}
                 duration={1.1}
                 trigger="mount"
               >
-                Built deliberately.
-                <span style={{ fontStyle: "italic", display: "block" }}>
-                  Held with conviction.
+                <span
+                  style={{
+                    fontSize: "clamp(36px, 4vw, 56px)",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
+                    display: "block",
+                  }}
+                >
+                  Built
+                </span>
+                <span
+                  style={{
+                    fontSize: "clamp(36px, 4vw, 56px)",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
+                    display: "block",
+                  }}
+                >
+                  deliberately.
+                </span>
+                <span
+                  style={{
+                    fontSize: "clamp(36px, 4vw, 56px)",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
+                    display: "block",
+                    fontStyle: "italic",
+                  }}
+                >
+                  Held with
+                </span>
+                <span
+                  style={{
+                    fontSize: "clamp(36px, 4vw, 56px)",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
+                    display: "block",
+                    fontStyle: "italic",
+                  }}
+                >
+                  conviction.
                 </span>
               </LineReveal>
             </div>

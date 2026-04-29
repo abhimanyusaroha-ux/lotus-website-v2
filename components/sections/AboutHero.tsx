@@ -74,7 +74,7 @@ export function AboutHero() {
             </div>
             <LineReveal
               as="h1"
-              className="font-sans font-bold text-ink mt-2 max-w-[360px]"
+              className="font-sans font-bold text-ink mt-2"
               trigger="mount"
               delay={0.6}
               stagger={0.1}
@@ -85,13 +85,52 @@ export function AboutHero() {
                   fontSize: "clamp(36px, 4vw, 56px)",
                   letterSpacing: "-0.025em",
                   lineHeight: 1.1,
-                  display: "inline",
+                  display: "block",
                 }}
               >
-                A Chicago real estate firm,{" "}
-                <span style={{ fontStyle: "italic" }}>
-                  built on conviction.
-                </span>
+                A Chicago
+              </span>
+              <span
+                style={{
+                  fontSize: "clamp(36px, 4vw, 56px)",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                  display: "block",
+                }}
+              >
+                real estate
+              </span>
+              <span
+                style={{
+                  fontSize: "clamp(36px, 4vw, 56px)",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                  display: "block",
+                }}
+              >
+                firm, built
+              </span>
+              <span
+                style={{
+                  fontSize: "clamp(36px, 4vw, 56px)",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                  display: "block",
+                  fontStyle: "italic",
+                }}
+              >
+                on
+              </span>
+              <span
+                style={{
+                  fontSize: "clamp(36px, 4vw, 56px)",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                  display: "block",
+                  fontStyle: "italic",
+                }}
+              >
+                conviction.
               </span>
             </LineReveal>
           </div>

@@ -178,13 +178,51 @@ export function Portfolio() {
         <div className="mt-8">
           <LineReveal
             as="h2"
-            className="display-md font-sans font-bold text-ink max-w-[500px]"
+            className="font-sans font-bold text-ink"
             stagger={0.08}
             duration={1.0}
           >
-            The portfolio.
-            <span style={{ fontStyle: "italic", display: "block" }}>
-              Each acquisition deliberate.
+            <span
+              style={{
+                fontSize: "clamp(36px, 4vw, 56px)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                display: "block",
+              }}
+            >
+              Built
+            </span>
+            <span
+              style={{
+                fontSize: "clamp(36px, 4vw, 56px)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                display: "block",
+              }}
+            >
+              deliberately.
+            </span>
+            <span
+              style={{
+                fontSize: "clamp(36px, 4vw, 56px)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                display: "block",
+                fontStyle: "italic",
+              }}
+            >
+              Held with
+            </span>
+            <span
+              style={{
+                fontSize: "clamp(36px, 4vw, 56px)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                display: "block",
+                fontStyle: "italic",
+              }}
+            >
+              conviction.
             </span>
           </LineReveal>
         </div>

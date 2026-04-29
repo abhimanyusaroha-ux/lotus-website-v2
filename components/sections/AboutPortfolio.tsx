@@ -136,11 +136,31 @@ export function AboutPortfolio() {
 
       <LineReveal
         as="h2"
-        className="display-md font-sans font-bold text-ink mt-6 max-w-[720px]"
+        className="font-sans font-bold text-ink mt-6"
         stagger={0.08}
         duration={1.0}
       >
-        Four projects, in detail.
+        <span
+          style={{
+            fontSize: "clamp(36px, 4vw, 56px)",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.1,
+            display: "block",
+          }}
+        >
+          Four projects,
+        </span>
+        <span
+          style={{
+            fontSize: "clamp(36px, 4vw, 56px)",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.1,
+            display: "block",
+            fontStyle: "italic",
+          }}
+        >
+          in detail.
+        </span>
       </LineReveal>
 
       {/* Row of 4 staggered images */}

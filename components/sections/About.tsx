@@ -49,7 +49,7 @@ export function About() {
         </div>
         <LineReveal
           as="h2"
-          className="col-span-9 max-[1024px]:col-span-1 display-lg font-sans font-bold text-ink"
+          className="col-span-9 max-[1024px]:col-span-1 display-md font-sans font-bold text-ink"
           stagger={0.1}
           duration={1.1}
         >
