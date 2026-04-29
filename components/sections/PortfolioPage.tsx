@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import LineReveal from "../LineReveal";
@@ -13,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
    ────────────────────────────────────────────────────────────────────────── */
 
 interface Project {
+  slug: string;
   name: string;
   location: string;
   status: string;
@@ -23,6 +25,7 @@ interface Project {
 
 const projects: Project[] = [
   {
+    slug: "fulton-district-mixed-use",
     name: "Fulton District Mixed-Use",
     location: "Fulton Market, Chicago",
     status: "Completed",
@@ -36,6 +39,7 @@ const projects: Project[] = [
     alt: "Fulton District mixed-use project, Fulton Market, Chicago",
   },
   {
+    slug: "logan-square-multifamily",
     name: "Logan Square Multifamily",
     location: "Logan Square, Chicago",
     status: "Completed",
@@ -49,6 +53,7 @@ const projects: Project[] = [
     alt: "Logan Square multifamily development, Chicago",
   },
   {
+    slug: "west-loop-value-add",
     name: "West Loop Value-Add",
     location: "West Loop, Chicago",
     status: "Completed",
@@ -62,6 +67,7 @@ const projects: Project[] = [
     alt: "West Loop value-add acquisition, Chicago",
   },
   {
+    slug: "wicker-park-residential",
     name: "Wicker Park Residential",
     location: "Wicker Park, Chicago",
     status: "Completed",
@@ -142,25 +148,35 @@ function ProjectCard({
   index: number;
   hovered: number | null;
   setHovered: (i: number | null) => void;
-  cardRef: (el: HTMLDivElement | null) => void;
+  cardRef: (el: HTMLElement | null) => void;
 }) {
   const [activeImg, setActiveImg] = useState(0);
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
   const previousActiveRef = useRef(0);
 
-  const next = useCallback(() => {
-    setActiveImg((cur) => {
-      previousActiveRef.current = cur;
-      return (cur + 1) % project.images.length;
-    });
-  }, [project.images.length]);
+  const next = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setActiveImg((cur) => {
+        previousActiveRef.current = cur;
+        return (cur + 1) % project.images.length;
+      });
+    },
+    [project.images.length]
+  );
 
-  const prev = useCallback(() => {
-    setActiveImg((cur) => {
-      previousActiveRef.current = cur;
-      return (cur - 1 + project.images.length) % project.images.length;
-    });
-  }, [project.images.length]);
+  const prev = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setActiveImg((cur) => {
+        previousActiveRef.current = cur;
+        return (cur - 1 + project.images.length) % project.images.length;
+      });
+    },
+    [project.images.length]
+  );
 
   // Ken-burns settle on the newly active image (skip very first mount —
   // initial reveal animation handles that)
@@ -182,7 +198,8 @@ function ProjectCard({
   ).padStart(2, "0")}`;
 
   return (
-    <div
+    <Link
+      href={`/portfolio/${project.slug}`}
       ref={cardRef}
       className="portfolio-card group block"
       style={{
@@ -296,7 +313,7 @@ function ProjectCard({
           {project.status} · {project.year}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -350,7 +367,7 @@ export function PortfolioPage() {
   const upcomingEyebrowRef = useRef<HTMLSpanElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const upcomingGridRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const upcomingCardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // "Our Projects" eyebrow fades in 0.6s after page load
@@ -399,10 +416,10 @@ export function PortfolioPage() {
 
     const reveal = (
       grid: HTMLDivElement | null,
-      cardArr: (HTMLDivElement | null)[]
+      cardArr: (HTMLElement | null)[]
     ) => {
       if (!grid) return;
-      const cards = cardArr.filter(Boolean) as HTMLDivElement[];
+      const cards = cardArr.filter(Boolean) as HTMLElement[];
       if (!cards.length) return;
 
       cards.forEach((card, i) => {
