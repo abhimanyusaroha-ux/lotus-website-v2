@@ -2,34 +2,11 @@ import Link from "next/link";
 import { LotusLogoMark } from "./LotusLogoMark";
 import LineReveal from "./LineReveal";
 
-const linkColumns = [
-  {
-    heading: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "Investors", href: "/investors" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    heading: "Investments",
-    links: [
-      { label: "Completed Projects", href: "/portfolio" },
-      { label: "Pre-Development", href: "/portfolio" },
-      { label: "Investor Portal", href: "/investors" },
-      { label: "Deal Submissions", href: "/contact" },
-    ],
-  },
-  {
-    heading: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/" },
-      { label: "Terms of Use", href: "/" },
-      { label: "Disclosures", href: "/" },
-      { label: "Accredited Investor Notice", href: "/" },
-    ],
-  },
+const navLinks = [
+  { label: "About", href: "/about" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Investors", href: "/investors" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Footer() {
@@ -49,27 +26,30 @@ export function Footer() {
           </LineReveal>
         </div>
 
-        {/* Link columns */}
-        <div className="mt-16 grid grid-cols-3 gap-x-8 gap-y-10 max-[640px]:grid-cols-1">
-          {linkColumns.map((col) => (
-            <div key={col.heading}>
-              <p className="caption font-sans text-gray-400 uppercase tracking-[0.1em] mb-5">
-                {col.heading}
-              </p>
-              <ul className="space-y-[10px]">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="body-sm font-sans text-gray-600 hover:text-ink transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Nav row + contact */}
+        <div className="mt-16 flex flex-wrap items-start justify-between gap-y-10 gap-x-12 max-[640px]:flex-col">
+          <ul className="flex flex-wrap gap-x-10 gap-y-3">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="body-sm font-sans text-gray-600 hover:text-ink transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-col gap-1 max-[640px]:items-start">
+            <a
+              href="mailto:hello@lotuspropertygroup.com"
+              className="body-sm font-sans text-ink hover:text-gray-600 transition-colors duration-200"
+            >
+              hello@lotuspropertygroup.com
+            </a>
+            <p className="body-sm font-sans text-gray-400">Chicago, IL</p>
+          </div>
         </div>
 
         {/* Divider */}
