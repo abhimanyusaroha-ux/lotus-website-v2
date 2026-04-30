@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Cinzel, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Cursor } from "@/components/Cursor";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -78,6 +79,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${cinzel.variable} ${instrumentSerif.variable}`}>
       <body className="bg-canvas text-ink antialiased">
         <SmoothScroll />
+        <ScrollToTop />
         <Cursor />
         <Navigation />
         {children}

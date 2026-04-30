@@ -26,6 +26,19 @@ export function ProjectHero({ project }: { project: Project }) {
       return;
     }
 
+    if (imgRef.current && imgInnerRef.current) {
+      gsap.fromTo(
+        imgRef.current,
+        { clipPath: "inset(100% 0 0 0)" },
+        { clipPath: "inset(0% 0 0 0)", duration: 1.6, ease: "power3.out", delay: 0.3 }
+      );
+      gsap.fromTo(
+        imgInnerRef.current,
+        { scale: 1.12 },
+        { scale: 1, duration: 1.8, ease: "power3.out", delay: 0.3 }
+      );
+    }
+
     let scrollTl: gsap.core.Timeline | null = null;
     if (scrollWrapperRef.current) {
       scrollTl = gsap.timeline({
@@ -113,11 +126,12 @@ export function ProjectHero({ project }: { project: Project }) {
           <div
             ref={imgRef}
             className="relative w-full overflow-hidden"
-            style={{ aspectRatio: "16 / 9" }}
+            style={{ aspectRatio: "16 / 9", clipPath: "inset(100% 0 0 0)" }}
           >
             <div
               ref={imgInnerRef}
               className="absolute inset-0"
+              style={{ transform: "scale(1.08)" }}
             >
               <Image
                 src={project.heroImage.src}

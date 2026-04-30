@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 const properties = [
   {
     id: "01",
+    slug: "fulton-district-mixed-use",
     name: "Fulton District Mixed-Use",
     location: "Completed · Fulton Market, Chicago",
     description:
@@ -23,6 +24,7 @@ const properties = [
   },
   {
     id: "02",
+    slug: "logan-square-multifamily",
     name: "Logan Square Multifamily",
     location: "Completed · Logan Square, Chicago",
     description:
@@ -32,6 +34,7 @@ const properties = [
   },
   {
     id: "03",
+    slug: "west-loop-value-add",
     name: "West Loop Value-Add",
     location: "Completed · West Loop, Chicago",
     description:
@@ -41,6 +44,7 @@ const properties = [
   },
   {
     id: "04",
+    slug: "wicker-park-residential",
     name: "Wicker Park Residential",
     location: "Completed · Wicker Park, Chicago",
     description:
@@ -242,7 +246,7 @@ export function Portfolio() {
                     <p className="s-reveal body-md font-sans text-gray-600 max-w-[400px]">{property.description}</p>
                   </div>
                   <div className="s-fade flex items-center gap-6 mt-10">
-                    <PillButton href="/portfolio">View project</PillButton>
+                    <PillButton href={`/portfolio/${property.slug}`}>View project</PillButton>
                     <TextButton href="/portfolio">All projects</TextButton>
                   </div>
                 </div>
@@ -297,7 +301,7 @@ export function Portfolio() {
                 {property.description}
               </p>
               <div className="mt-5">
-                <TextButton href="/portfolio">View project</TextButton>
+                <TextButton href={`/portfolio/${property.slug}`}>View project</TextButton>
               </div>
             </div>
           </div>

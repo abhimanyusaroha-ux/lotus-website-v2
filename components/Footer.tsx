@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LotusLogoMark } from "./LotusLogoMark";
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Investors", href: "/investors" },

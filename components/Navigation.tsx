@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
@@ -46,7 +46,8 @@ export function Navigation() {
   }, []);
 
   // ── Header mount animation ────────────────────────────────────────
-  useEffect(() => {
+  // useLayoutEffect so the initial gsap.set runs before paint, avoiding a flash.
+  useLayoutEffect(() => {
     const header = headerRef.current;
     if (!header) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -64,12 +65,26 @@ export function Navigation() {
     if (cta) gsap.set(cta, { opacity: 0, y: -8 });
 
     const tl = gsap.timeline({ delay: 0.1 });
-    tl.to(header, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" });
-    if (logo) tl.to(logo, { opacity: 1, duration: 0.5 }, "-=0.5");
+    tl.to(header, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out", overwrite: "auto" });
+    if (logo) tl.to(logo, { opacity: 1, duration: 0.5, overwrite: "auto" }, "-=0.5");
     if (links.length)
-      tl.to(links, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" }, "-=0.4");
+      tl.to(links, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out", overwrite: "auto" }, "-=0.4");
     if (cta)
-      tl.to(cta, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "-=0.15");
+      tl.to(cta, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: "auto" }, "-=0.15");
+
+    // Safety: after the timeline finishes, force-pin everything to its visible
+    // end-state in case any later tween (e.g. scroll-driven height) overwrote it.
+    const safety = window.setTimeout(() => {
+      gsap.set(header, { opacity: 1, y: 0 });
+      if (logo) gsap.set(logo, { opacity: 1 });
+      if (links.length) gsap.set(links, { opacity: 1, y: 0 });
+      if (cta) gsap.set(cta, { opacity: 1, y: 0 });
+    }, 1500);
+
+    return () => {
+      window.clearTimeout(safety);
+      tl.kill();
+    };
   }, []);
 
   // ── Scroll shrink + backdrop ──────────────────────────────────────
@@ -82,7 +97,7 @@ export function Navigation() {
       const past = window.scrollY > 80;
       header.classList.toggle("nav-scrolled", past);
       if (!prefersReduced) {
-        gsap.to(header, { height: past ? 60 : 72, duration: 0.4, ease: "expo.out", overwrite: true });
+        gsap.to(header, { height: past ? 60 : 72, duration: 0.4, ease: "expo.out", overwrite: "auto" });
       }
     };
 
@@ -162,7 +177,7 @@ export function Navigation() {
       <header
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-50 bg-canvas transition-[background-color,border-color] duration-300"
-        style={{ height: "72px", opacity: 0 }}
+        style={{ height: "72px" }}
       >
         <div className="h-full max-w-[1440px] mx-auto px-[120px] flex items-center justify-between max-[1024px]:px-12 max-[640px]:px-6">
 
