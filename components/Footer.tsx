@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LotusLogoMark } from "./LotusLogoMark";
-import LineReveal from "./LineReveal";
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -16,14 +15,9 @@ export function Footer() {
 
         {/* Large wordmark */}
         <div className="grid grid-cols-12 max-[1024px]:grid-cols-1">
-          <LineReveal
-            as="h2"
-            className="col-span-10 max-[1024px]:col-span-1 display-lg font-sans font-bold text-ink"
-            stagger={0.08}
-            duration={1.1}
-          >
+          <h2 className="col-span-10 max-[1024px]:col-span-1 display-lg font-sans font-bold text-ink">
             Lotus Property Group
-          </LineReveal>
+          </h2>
         </div>
 
         {/* Nav row + contact */}
