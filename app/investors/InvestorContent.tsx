@@ -175,7 +175,14 @@ export function InvestorContent() {
             </p>
 
             <div className="mt-12 min-h-[300px]">
-              {submitted ? (
+              {/* Coming soon message — login form temporarily disabled. Restore by setting this to `false`. */}
+              {true ? (
+                <div>
+                  <p className="body-sm font-sans font-normal text-ink-muted">
+                    Coming soon.
+                  </p>
+                </div>
+              ) : submitted ? (
                 <div id="post-submit-message" style={{ opacity: 0 }}>
                   <p className="body-sm font-sans font-normal text-ink-muted">
                     This portal is currently in development. If you're a current investor and need access to your documents, please contact us at <a href="mailto:hello@lotuspropertygroup.com" className="text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all">hello@lotuspropertygroup.com</a> and we'll send them directly.

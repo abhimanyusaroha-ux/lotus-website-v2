@@ -12,14 +12,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
   { label: "Home", href: "/" },
-  // Home 1 / Home 2 typeface iterations — temporarily hidden per client request 2026-04-29.
+  // Home 1 / Home 2 typeface iterations — hidden per client request 2026-04-29.
   // Pages still exist at /home-1 and /home-2 (direct URL access works); restore by uncommenting:
-  { label: "Home 1", href: "/home-1" },
-  { label: "Home 2", href: "/home-2" },
+  // { label: "Home 1", href: "/home-1" },
+  // { label: "Home 2", href: "/home-2" },
   { label: "About", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Investors", href: "/investors" },
 ];
+
+function isLinkActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
 
 export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,7 +49,10 @@ export function Navigation() {
   useEffect(() => {
     const header = headerRef.current;
     if (!header) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(header, { opacity: 1, y: 0 });
+      return;
+    }
 
     const links = linkRefs.current.filter(Boolean) as HTMLAnchorElement[];
     const cta = ctaRef.current;
@@ -143,9 +151,9 @@ export function Navigation() {
     });
   };
 
-  // Close on route change (back button etc.)
+  // Close on route change (back button etc.) — only when menu is actually open.
   useEffect(() => {
-    closeMenu();
+    if (menuOpen) closeMenu();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
@@ -154,7 +162,7 @@ export function Navigation() {
       <header
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-50 bg-canvas transition-[background-color,border-color] duration-300"
-        style={{ height: "72px" }}
+        style={{ height: "72px", opacity: 0 }}
       >
         <div className="h-full max-w-[1440px] mx-auto px-[120px] flex items-center justify-between max-[1024px]:px-12 max-[640px]:px-6">
 
@@ -176,7 +184,7 @@ export function Navigation() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-9" aria-label="Main navigation">
             {navLinks.map((link, i) => {
-              const isActive = pathname === link.href;
+              const isActive = isLinkActive(pathname, link.href);
               return (
                 <Link
                   key={link.href}
