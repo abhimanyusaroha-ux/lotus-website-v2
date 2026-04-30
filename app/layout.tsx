@@ -4,7 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Cursor } from "@/components/Cursor";
 import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
+import { ConditionalFooter } from "@/components/ConditionalFooter";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -81,7 +81,7 @@ export default function RootLayout({
         <Cursor />
         <Navigation />
         {children}
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   );
