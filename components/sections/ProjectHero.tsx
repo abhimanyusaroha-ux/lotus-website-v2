@@ -4,12 +4,16 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import LineReveal from "../LineReveal";
 import type { Project } from "@/data/projects";
 
 export function ProjectHero({ project }: { project: Project }) {
   const imgRef = useRef<HTMLDivElement>(null);
   const imgInnerRef = useRef<HTMLDivElement>(null);
+  const scrollWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia(
@@ -42,8 +46,54 @@ export function ProjectHero({ project }: { project: Project }) {
         0
       );
     }
+
+    const mm = gsap.matchMedia();
+    
+    mm.add('(min-width: 768px)', () => {
+      if (!scrollWrapperRef.current) return;
+      
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: scrollWrapperRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          scrub: 0.6,
+        },
+      });
+
+      scrollTl.fromTo(
+        scrollWrapperRef.current,
+        {
+          width: '80vw',
+        },
+        {
+          width: '100vw',
+          ease: 'none',
+        }
+      );
+
+      // We only animate the scale of the innermost div so that it gives a breathing effect.
+      // But since imgInnerRef is already animating from 1.08 to 1 on mount,
+      // we might want to just animate its child Image or let the width expansion do the work naturally.
+      // The user requested scaling the 'img' directly:
+      const imgEl = imgInnerRef.current?.querySelector('img');
+      if (imgEl) {
+        scrollTl.fromTo(
+          imgEl,
+          { scale: 1.0 },
+          { scale: 1.02, ease: 'none' },
+          0
+        );
+      }
+      
+      return () => {
+        scrollTl.kill();
+      };
+    });
+
     return () => {
       tl.kill();
+      mm.revert();
     };
   }, []);
 
@@ -94,35 +144,37 @@ export function ProjectHero({ project }: { project: Project }) {
         </p>
       </div>
 
-      {/* Hero image — 80vw, centered, breaks out of container */}
-      <div className="mt-16 max-[640px]:mt-10 w-[80vw] mx-auto">
-        <div
-          ref={imgRef}
-          className="relative w-full overflow-hidden"
-          style={{
-            aspectRatio: "16 / 9",
-            clipPath: "inset(50% 0 50% 0)",
-            opacity: 0,
-          }}
-        >
+      {/* Hero image — 80vw, centered, expands on scroll */}
+      <div className="mt-16 max-[640px]:mt-10 overflow-visible">
+        <div ref={scrollWrapperRef} className="mx-auto" style={{ width: '80vw' }}>
           <div
-            ref={imgInnerRef}
-            className="absolute inset-0"
-            style={{ transform: "scale(1.08)", transformOrigin: "center" }}
+            ref={imgRef}
+            className="relative w-full overflow-hidden"
+            style={{
+              aspectRatio: "16 / 9",
+              clipPath: "inset(50% 0 50% 0)",
+              opacity: 0,
+            }}
           >
-            <Image
-              src={project.heroImage.src}
-              fill
-              alt={project.heroImage.alt}
-              className="object-cover"
-              priority
-              sizes="80vw"
-            />
+            <div
+              ref={imgInnerRef}
+              className="absolute inset-0"
+              style={{ transform: "scale(1.08)", transformOrigin: "center" }}
+            >
+              <Image
+                src={project.heroImage.src}
+                fill
+                alt={project.heroImage.alt}
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
           </div>
+          <p className="mt-4 caption font-sans text-gray-600 italic">
+            Exterior · {project.location}, {project.year}
+          </p>
         </div>
-        <p className="mt-4 caption font-sans text-gray-600 italic">
-          Exterior · {project.location}, {project.year}
-        </p>
       </div>
     </section>
   );
