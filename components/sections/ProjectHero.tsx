@@ -45,15 +45,15 @@ export function ProjectHero({ project }: { project: Project }) {
         scrollTrigger: {
           trigger: document.body,
           start: 0,
-          end: 600,
-          scrub: 0.6,
+          end: 700,
+          scrub: 1,
         },
       });
 
       scrollTl.fromTo(
         scrollWrapperRef.current,
         { width: '80vw' },
-        { width: '100vw', ease: 'none' }
+        { width: '100vw', ease: 'power2.out' }
       );
 
       const imgEl = imgInnerRef.current?.querySelector('img');

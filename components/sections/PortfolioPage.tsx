@@ -459,12 +459,25 @@ export function PortfolioPage() {
           })
         );
 
+        if (text) {
+          tweens.push(
+            gsap.to(text, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              delay,
+              ease: "power3.out",
+              scrollTrigger: trigger,
+            })
+          );
+        }
+
         if (imgClip) {
           tweens.push(
             gsap.to(imgClip, {
               clipPath: "inset(0% 0 0 0)",
               duration: 1.2,
-              delay,
+              delay: delay + 0.25,
               ease: "power3.out",
               scrollTrigger: trigger,
             })
@@ -476,20 +489,7 @@ export function PortfolioPage() {
             gsap.to(firstImgInner, {
               scale: 1,
               duration: 1.6,
-              delay,
-              ease: "power3.out",
-              scrollTrigger: trigger,
-            })
-          );
-        }
-
-        if (text) {
-          tweens.push(
-            gsap.to(text, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              delay: delay + 1.5,
+              delay: delay + 0.25,
               ease: "power3.out",
               scrollTrigger: trigger,
             })

@@ -84,61 +84,41 @@ export function Portfolio() {
         });
 
         // ── Initial text states ────────────────────────────────────────
-        gsap.set(Array.from(slideTextGroups[0]?.querySelectorAll<HTMLElement>(".s-reveal") ?? []), { yPercent: 0, opacity: 1 });
-        gsap.set(Array.from(slideTextGroups[0]?.querySelectorAll<HTMLElement>(".s-fade") ?? []), { opacity: 1 });
+        // Slide 0 visible; all others below their masks.
+        const reveals0 = Array.from(slideTextGroups[0]?.querySelectorAll<HTMLElement>(".s-reveal") ?? []);
+        const fades0 = Array.from(slideTextGroups[0]?.querySelectorAll<HTMLElement>(".s-fade") ?? []);
+        gsap.set(reveals0, { yPercent: 0, opacity: 1 });
+        gsap.set(fades0, { opacity: 1 });
         slideTextGroups.slice(1).forEach((group) => {
           gsap.set(Array.from(group.querySelectorAll<HTMLElement>(".s-reveal")), { yPercent: 110, opacity: 0 });
           gsap.set(Array.from(group.querySelectorAll<HTMLElement>(".s-fade")), { opacity: 0 });
         });
 
-        // ── Text helpers — fixed-speed, decoupled from scroll ──────────
-        let activeSlide = 0;
-
-        const textExit = (idx: number) => {
-          const group = slideTextGroups[idx];
-          if (!group) return;
-          gsap.to(Array.from(group.querySelectorAll<HTMLElement>(".s-reveal, .s-fade")), {
-            opacity: 0, y: -14, duration: 0.22, ease: "power3.in", overwrite: true,
+        // Pointer events: only active slide receives interaction.
+        const setPointerActive = (idx: number) => {
+          slideImgs.forEach((img, i) => {
+            const row = img.parentElement as HTMLElement | null;
+            if (row) row.style.pointerEvents = i === idx ? "auto" : "none";
           });
         };
 
-        const textEnter = (idx: number) => {
-          const group = slideTextGroups[idx];
-          if (!group) return;
-          const reveals = Array.from(group.querySelectorAll<HTMLElement>(".s-reveal"));
-          const fades = Array.from(group.querySelectorAll<HTMLElement>(".s-fade"));
-          gsap.set(reveals, { yPercent: 110, opacity: 0, y: 0 });
-          gsap.set(fades, { opacity: 0, y: 0 });
-          gsap.to(reveals, { yPercent: 0, opacity: 1, stagger: 0.08, duration: 0.9, ease: "expo.out", overwrite: true });
-          gsap.to(fades, { opacity: 1, duration: 0.5, delay: 0.3, ease: "power2.out", overwrite: true });
-        };
-
-        // ── Scrub timeline: only the outgoing slide collapses ──────────
+        // ── Scrub timeline: image clip + text fade locked to scroll ────
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sliderSectionRef.current,
             start: "top top",
             end: "bottom bottom",
-            scrub: 1,
+            scrub: 1.2,
             snap: {
               snapTo: [0, 1 / 3, 2 / 3, 1],
-              duration: { min: 0.5, max: 0.9 },
-              ease: "power3.inOut",
+              duration: { min: 0.6, max: 1.1 },
+              ease: "power4.inOut",
             },
             onUpdate(self) {
               const rawSlide = self.progress * (n - 1);
               const nearest = Math.min(Math.round(rawSlide), n - 1);
 
-              if (nearest !== activeSlide) {
-                textExit(activeSlide);
-                textEnter(nearest);
-                // Give pointer events to active slide row only
-                slideImgs.forEach((img, i) => {
-                  const row = img.parentElement as HTMLElement | null;
-                  if (row) row.style.pointerEvents = i === nearest ? "auto" : "none";
-                });
-                activeSlide = nearest;
-              }
+              setPointerActive(nearest);
 
               if (counterRef.current) {
                 counterRef.current.textContent = String(nearest + 1).padStart(2, "0");
@@ -146,20 +126,48 @@ export function Portfolio() {
 
               progressFillRefs.current.forEach((fill, i) => {
                 if (!fill) return;
-                fill.style.height = `${Math.max(0, Math.min(1, rawSlide - i)) * 100}%`;
+                fill.style.height = `${Math.max(0, Math.min(1, rawSlide + 1 - i)) * 100}%`;
               });
             },
           },
         });
 
         // Each outgoing slide's right inset collapses to 100%, revealing the
-        // slide beneath — no incoming clip, no boundary gap.
+        // slide beneath — and its text fades out as the next slide's text
+        // fades in. All locked to the same scrub progress.
         for (let i = 0; i < n - 1; i++) {
+          // Image: collapse over the full row.
           tl.to(
             slideImgs[i],
             { clipPath: "inset(0 100% 0 0)", duration: 1, ease: "none" },
             i
           );
+
+          const outgoingGroup = slideTextGroups[i];
+          const incomingGroup = slideTextGroups[i + 1];
+          if (outgoingGroup) {
+            const outReveals = Array.from(outgoingGroup.querySelectorAll<HTMLElement>(".s-reveal"));
+            const outFades = Array.from(outgoingGroup.querySelectorAll<HTMLElement>(".s-fade"));
+            tl.to(
+              [...outReveals, ...outFades],
+              { yPercent: -110, opacity: 0, duration: 0.45, ease: "power2.in" },
+              i
+            );
+          }
+          if (incomingGroup) {
+            const inReveals = Array.from(incomingGroup.querySelectorAll<HTMLElement>(".s-reveal"));
+            const inFades = Array.from(incomingGroup.querySelectorAll<HTMLElement>(".s-fade"));
+            tl.to(
+              inReveals,
+              { yPercent: 0, opacity: 1, duration: 0.45, ease: "power2.out" },
+              i + 0.55
+            );
+            tl.to(
+              inFades,
+              { opacity: 1, duration: 0.45, ease: "power2.out" },
+              i + 0.55
+            );
+          }
         }
 
         return () => {

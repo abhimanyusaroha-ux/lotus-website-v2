@@ -70,16 +70,21 @@ function GalleryImage({
       >
         <div
           ref={innerRef}
-          className="gallery-inner absolute inset-0 transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
+          className="gallery-inner absolute inset-0"
           style={{ transformOrigin: "center" }}
         >
-          <Image
-            src={image.src}
-            fill
-            alt={image.alt}
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
+          <div
+            className="absolute inset-0 transition-transform duration-[600ms] ease-out group-hover:scale-[1.05]"
+            style={{ transformOrigin: "center" }}
+          >
+            <Image
+              src={image.src}
+              fill
+              alt={image.alt}
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
         </div>
 
         {/* Hover overlay — Expand pill */}

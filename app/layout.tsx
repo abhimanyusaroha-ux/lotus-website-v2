@@ -3,6 +3,7 @@ import { Inter, Cinzel, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { PageTransition } from "@/components/PageTransition";
 import { Cursor } from "@/components/Cursor";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -82,7 +83,7 @@ export default function RootLayout({
         <ScrollToTop />
         <Cursor />
         <Navigation />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <Footer />
       </body>
     </html>

@@ -48,20 +48,20 @@ export function Hero({
     tl.fromTo(
       inner,
       { yPercent: 100 },
-      { yPercent: 0, duration: 1.2, ease: "expo.out" }
+      { yPercent: 0, duration: 1.6, ease: "expo.out" }
     );
 
     // Image clip-path reveal from bottom + scale
     tl.fromTo(
       img,
-      { clipPath: "inset(100% 0 0 0)", scale: 1.08 },
+      { clipPath: "inset(100% 0 0 0)", scale: 1.12 },
       {
         clipPath: "inset(0% 0 0 0)",
         scale: 1,
-        duration: 1.4,
+        duration: 1.8,
         ease: "expo.out",
       },
-      0.9
+      0.7
     );
 
     const wrapper = imageWrapperRef.current;
@@ -71,14 +71,14 @@ export function Hero({
         scrollTrigger: {
           trigger: document.body,
           start: 0,
-          end: 600,
-          scrub: 0.6,
+          end: 700,
+          scrub: 1,
         },
       });
       scrollTl.fromTo(
         wrapper,
         { width: "80vw" },
-        { width: "100vw", ease: "none" }
+        { width: "100vw", ease: "power2.out" }
       );
     }
 
