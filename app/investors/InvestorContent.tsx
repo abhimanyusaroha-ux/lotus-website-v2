@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { LotusLogoMark } from "@/components/LotusLogoMark";
 import gsap from "gsap";
 
 export function InvestorContent() {
@@ -12,10 +11,12 @@ export function InvestorContent() {
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   
-  const logoRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const emailFieldRef = useRef<HTMLDivElement>(null);
+  const passwordFieldRef = useRef<HTMLDivElement>(null);
+  const submitGroupRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   
   const imageRef = useRef<HTMLDivElement>(null);
@@ -24,7 +25,6 @@ export function InvestorContent() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       gsap.set([
-        logoRef.current,
         headingRef.current,
         subtextRef.current,
         bottomRef.current,
@@ -36,11 +36,6 @@ export function InvestorContent() {
     }
 
     const tl = gsap.timeline();
-
-    // t=0.0s: logo fades in
-    if (logoRef.current) {
-      tl.fromTo(logoRef.current, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0);
-    }
 
     // t=0.15s: heading fades in
     if (headingRef.current) {
@@ -64,9 +59,9 @@ export function InvestorContent() {
 
     // form fields stagger in
     if (formRef.current) {
-      const emailField = formRef.current.children[1]; // [0] is style
-      const passwordField = formRef.current.children[2];
-      const bottomGroup = formRef.current.children[3]; // forgot + submit
+      const emailField = emailFieldRef.current;
+      const passwordField = passwordFieldRef.current;
+      const bottomGroup = submitGroupRef.current;
       
       tl.fromTo(
         emailField,
@@ -159,23 +154,9 @@ export function InvestorContent() {
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-canvas relative">
-      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center py-12 min-[768px]:py-[64px] pl-[120px] max-[1024px]:pl-12 max-[640px]:px-6 pr-[64px] max-[1024px]:pr-12">
+      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center py-12 min-[768px]:py-[64px] pl-[max(120px,calc((100vw-1440px)/2+120px))] max-[1024px]:!pl-12 max-[640px]:!px-6 pr-[64px] max-[1024px]:pr-12">
         <div className="w-full max-w-[560px] mx-auto xl:mx-0 xl:max-w-none relative min-h-[500px] flex flex-col justify-center">
           
-          <div ref={logoRef} style={{ opacity: 0 }} className="flex items-center justify-start max-[768px]:justify-center mb-12">
-            <Link href="/" className="flex items-center gap-3 group">
-              <LotusLogoMark size={32} className="text-ink transition-transform duration-300 group-hover:scale-105" />
-              <div className="flex flex-col gap-0">
-                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-ink leading-[14px]">
-                  Lotus
-                </span>
-                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-gray-600 leading-[14px]">
-                  Property Group
-                </span>
-              </div>
-            </Link>
-          </div>
-
           <div className="max-w-[380px] max-[768px]:mx-auto max-[768px]:text-center">
             <h1
               ref={headingRef}
@@ -237,7 +218,7 @@ export function InvestorContent() {
                     }
                   `}</style>
                   
-                  <div className="group" style={{ opacity: 0 }}>
+                  <div ref={emailFieldRef} className="group" style={{ opacity: 0 }}>
                     <label htmlFor="email" className="caption font-sans text-gray-600 uppercase tracking-[0.12em] block mb-2">
                       Email address
                     </label>
@@ -255,7 +236,7 @@ export function InvestorContent() {
                     </p>
                   </div>
 
-                  <div className="group" style={{ opacity: 0 }}>
+                  <div ref={passwordFieldRef} className="group" style={{ opacity: 0 }}>
                     <label htmlFor="password" className="caption font-sans text-gray-600 uppercase tracking-[0.12em] block mb-2">
                       Password
                     </label>
@@ -294,7 +275,7 @@ export function InvestorContent() {
                     </p>
                   </div>
 
-                  <div style={{ opacity: 0 }}>
+                  <div ref={submitGroupRef} style={{ opacity: 0 }}>
                     <div className="flex justify-end mb-8 mt-2">
                       <button type="button" className="body-sm font-sans text-gray-600 underline underline-offset-2 decoration-[1px] hover:text-ink hover:decoration-2 transition-all">
                         Forgot your password?
@@ -330,10 +311,10 @@ export function InvestorContent() {
         </div>
       </div>
 
-      <div className="hidden md:block md:w-[45%] xl:w-1/2 h-screen sticky top-0 overflow-hidden bg-gray-100">
-        <div 
-          ref={imageRef} 
-          className="absolute inset-0 w-full h-full"
+      <div className="hidden md:block md:w-[45%] xl:w-1/2 h-screen sticky top-0 bg-canvas pr-[max(0px,calc((100vw-1440px)/2+120px))]">
+        <div
+          ref={imageRef}
+          className="relative w-full h-full overflow-hidden bg-gray-100"
           style={{ clipPath: "inset(0 100% 0 0)" }}
         >
           <div ref={imageInnerRef} className="absolute inset-0 w-full h-full">
