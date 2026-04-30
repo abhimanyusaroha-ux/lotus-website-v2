@@ -26,12 +26,9 @@ export function ProjectHero({ project }: { project: Project }) {
       return;
     }
 
-    const mm = gsap.matchMedia();
-    
-    mm.add('(min-width: 768px)', () => {
-      if (!scrollWrapperRef.current) return;
-      
-      const scrollTl = gsap.timeline({
+    let scrollTl: gsap.core.Timeline | null = null;
+    if (scrollWrapperRef.current) {
+      scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: document.body,
           start: 0,
@@ -42,19 +39,10 @@ export function ProjectHero({ project }: { project: Project }) {
 
       scrollTl.fromTo(
         scrollWrapperRef.current,
-        {
-          width: '80vw',
-        },
-        {
-          width: '100vw',
-          ease: 'none',
-        }
+        { width: '80vw' },
+        { width: '100vw', ease: 'none' }
       );
 
-      // We only animate the scale of the innermost div so that it gives a breathing effect.
-      // But since imgInnerRef is already animating from 1.08 to 1 on mount,
-      // we might want to just animate its child Image or let the width expansion do the work naturally.
-      // The user requested scaling the 'img' directly:
       const imgEl = imgInnerRef.current?.querySelector('img');
       if (imgEl) {
         scrollTl.fromTo(
@@ -64,14 +52,11 @@ export function ProjectHero({ project }: { project: Project }) {
           0
         );
       }
-      
-      return () => {
-        scrollTl.kill();
-      };
-    });
+    }
 
     return () => {
-      mm.revert();
+      scrollTl?.scrollTrigger?.kill();
+      scrollTl?.kill();
     };
   }, []);
 

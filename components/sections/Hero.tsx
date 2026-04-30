@@ -64,11 +64,10 @@ export function Hero({
       0.9
     );
 
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px)", () => {
-      const wrapper = imageWrapperRef.current;
-      if (!wrapper) return;
-      const scrollTl = gsap.timeline({
+    const wrapper = imageWrapperRef.current;
+    let scrollTl: gsap.core.Timeline | null = null;
+    if (wrapper) {
+      scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: document.body,
           start: 0,
@@ -81,13 +80,11 @@ export function Hero({
         { width: "80vw" },
         { width: "100vw", ease: "none" }
       );
-      return () => {
-        scrollTl.kill();
-      };
-    });
+    }
 
     return () => {
-      mm.revert();
+      scrollTl?.scrollTrigger?.kill();
+      scrollTl?.kill();
     };
   }, []);
 
