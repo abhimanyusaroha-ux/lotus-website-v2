@@ -6,8 +6,8 @@ import { Footer } from "./Footer";
 export function ConditionalFooter() {
   const pathname = usePathname();
   
-  // Do not render the footer on the contact page
-  if (pathname === "/contact") {
+  // Do not render the footer on the contact or investors pages
+  if (pathname === "/contact" || pathname === "/investors") {
     return null;
   }
   
