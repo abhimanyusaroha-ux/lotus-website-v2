@@ -106,10 +106,7 @@ export function AboutStats() {
             stagger={0.1}
             duration={1.1}
           >
-            Built on conviction.
-            <span style={{ fontStyle: "italic", display: "block" }}>
-              Measured by returns.
-            </span>
+            Two years, four buildings, and counting.
           </LineReveal>
         </div>
         <div className="col-start-9 col-span-4 max-[1024px]:col-start-1 max-[1024px]:col-span-1 pt-2">
@@ -119,9 +116,7 @@ export function AboutStats() {
             stagger={0.05}
             duration={0.9}
           >
-            Two years in, the discipline shows up in the numbers. Each one is
-            a constraint we hold ourselves to — and a promise we make to our
-            partners.
+            These aren't projections. They're a record of what we've done since we started the firm. We update them as the work progresses.
           </LineReveal>
         </div>
       </div>
@@ -161,7 +156,7 @@ export function AboutStats() {
               <Counter target={5} />
             </div>
             <p className="body-sm font-sans text-canvas/70 mt-6">
-              In active pre-development
+              Currently in pre-development
             </p>
           </div>
 
@@ -179,7 +174,7 @@ export function AboutStats() {
               <Counter target={48} suffix="hrs" />
             </div>
             <p className="body-sm font-sans text-gray-600 mt-6">
-              Average response to opportunities
+              Average response time on new opportunities
             </p>
           </div>
 
@@ -197,7 +192,7 @@ export function AboutStats() {
               <Counter target={100} suffix="%" />
             </div>
             <p className="body-sm font-sans text-gray-600 mt-6">
-              Investor capital deployed on schedule
+              Of investor capital deployed on schedule
             </p>
           </div>
         </div>
@@ -211,11 +206,7 @@ export function AboutStats() {
         >
           {/* Top — paragraph */}
           <p className="body-md font-sans text-ink max-w-[320px]">
-            We&apos;ve spent two years quietly building a reputation among
-            Chicago&apos;s middle-market operators. Every project is
-            underwritten the same way — with discipline, conviction, and the
-            assumption that we&apos;ll hold it longer than the numbers say we
-            should.
+            What you see here is the floor of what we expect from ourselves. Every project is underwritten the same way, carefully, and judged by the same standard once it's complete. If we keep doing that, the numbers should keep telling a good story.
           </p>
 
           {/* Bottom — circular CTA + image */}

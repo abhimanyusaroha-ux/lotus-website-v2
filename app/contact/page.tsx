@@ -17,10 +17,10 @@ export default function Contact() {
             Contact
           </p>
           <h1 className="display-md font-sans font-bold text-ink">
-            Get in touch.
+            Let's talk.
           </h1>
           <p className="body-md font-sans text-gray-600 mt-4 max-w-[440px]">
-            We review all submissions and respond within one business day.
+            Whether you're an investor, an owner with a building you'd like us to look at, or just curious about how we work, send us a note. We read everything that comes in and reply within a business day.
           </p>
 
           {submitted ? (

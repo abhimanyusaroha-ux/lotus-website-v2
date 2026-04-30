@@ -12,29 +12,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
-    question: "What types of real estate does Lotus invest in?",
+    question: "How does Lotus pick the projects it takes on?",
     answer:
-      "We focus on value-add multifamily, mixed-use, and ground-up residential development in Chicago's core neighborhoods — primarily the West Loop, Fulton Market, Logan Square, Wicker Park, and River North corridors. We do not pursue suburban, retail-only, or single-tenant net-lease assets.",
+      "We look at every opportunity through four lenses: the quality of the location over a ten-year horizon, the architecture or development potential, the condition of the asset and what it would take to improve, and finally the circumstances of the deal itself. In a typical year, we say yes to about one in fifteen properties we look at seriously.",
   },
   {
-    question: "How can I invest alongside Lotus?",
+    question: "Where do you operate?",
     answer:
-      "We raise capital on a deal-by-deal basis from a select group of accredited investors. If you're interested in being considered for a future opportunity, reach out via our contact form. We'll respond within one business day and schedule a call if there's a mutual fit.",
+      "We focus on Chicago, with most of our work concentrated in West Loop, Fulton Market, Logan Square, Wicker Park, and River North. We expect to expand carefully into one or two adjacent markets over the next several years, but only when we've found the right operating partner and the right deal flow.",
   },
   {
-    question: "What is the minimum investment?",
+    question: "What's the minimum investment?",
     answer:
-      "Our minimum co-investment is $100,000 per transaction. Some deals have higher minimums depending on deal size and structure. All investors must qualify as accredited under SEC Regulation D.",
+      "Our typical co-investment is $100,000 per deal, though some opportunities have higher minimums depending on size and structure. Every investor needs to qualify as accredited under SEC Regulation D before participating.",
   },
   {
-    question: "How do I access my investment documents and tax forms?",
+    question: "How do investors track their investments?",
     answer:
-      "All capital partners receive login credentials to our investor portal after closing. The portal gives you access to quarterly reports, K-1 documents, capital call notices, wire instructions, and fund-level performance summaries.",
+      "After your first deal closes, you get login credentials to our investor portal. From there, you can pull quarterly reports, K-1 documents, capital call notices, wire instructions, and current performance summaries any time. We also send a written update at the end of each quarter.",
   },
   {
-    question: "Does Lotus accept unsolicited deal submissions?",
+    question: "Do you look at deals from outside brokers and owners?",
     answer:
-      "Yes. We actively review off-market opportunities. If you have a property or project you'd like us to consider, submit the details through our contact form. We evaluate every submission and respond to qualified opportunities within 48 hours.",
+      "Yes, and we're genuinely open to off-market submissions. If you have a property you think fits how we work, send us the details through the contact page. We respond to every qualified submission within forty-eight hours, even when the answer is no.",
   },
 ];
 
@@ -137,7 +137,7 @@ export function FAQ() {
           stagger={0.08}
           duration={1.0}
         >
-          The questions we hear most.
+          Things people ask before they invest.
         </LineReveal>
       </div>
 
@@ -161,7 +161,7 @@ export function FAQ() {
       {/* Bottom CTA */}
       <div className="mt-28 max-[640px]:mt-16 flex flex-col items-center gap-5">
         <p className="body-md font-sans text-gray-600 text-center">
-          Have a different question? Our team responds within one business day.
+          If yours isn't here, we usually reply within a business day.
         </p>
         <PillButton href="/contact">Contact our team</PillButton>
       </div>

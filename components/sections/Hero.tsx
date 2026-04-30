@@ -111,8 +111,7 @@ export function Hero({
             stagger={0.06}
             duration={0.9}
           >
-            Acquiring and developing investment-grade real estate across
-            Chicago&apos;s most resilient corridors.
+            We're a real estate investment firm based in Chicago. We acquire, develop, and operate residential and mixed-use properties in the parts of the city we believe in for the long run.
           </LineReveal>
           <LineReveal
             as="p"
@@ -122,8 +121,7 @@ export function Hero({
             stagger={0.06}
             duration={0.9}
           >
-            A disciplined approach to underwriting, development, and long-term
-            value creation for our partners.
+            Our work is slow on purpose. We underwrite carefully, hold longer than the spreadsheet says we should, and build relationships that outlast any single deal.
           </LineReveal>
         </div>
 

@@ -530,7 +530,7 @@ export function PortfolioPage() {
                     display: "block",
                   }}
                 >
-                  Built
+                  The work,
                 </span>
                 <span
                   style={{
@@ -540,29 +540,7 @@ export function PortfolioPage() {
                     display: "block",
                   }}
                 >
-                  deliberately.
-                </span>
-                <span
-                  style={{
-                    fontSize: "clamp(36px, 4vw, 56px)",
-                    letterSpacing: "-0.025em",
-                    lineHeight: 1.1,
-                    display: "block",
-                    fontStyle: "italic",
-                  }}
-                >
-                  Held with
-                </span>
-                <span
-                  style={{
-                    fontSize: "clamp(36px, 4vw, 56px)",
-                    letterSpacing: "-0.025em",
-                    lineHeight: 1.1,
-                    display: "block",
-                    fontStyle: "italic",
-                  }}
-                >
-                  conviction.
+                  four projects in.
                 </span>
               </LineReveal>
             </div>
@@ -577,10 +555,7 @@ export function PortfolioPage() {
               trigger="mount"
               delay={0.4}
             >
-              Each project below was selected against the same criteria —
-              location quality, deal structure, and our ability to add value
-              through active management. These are the four we&apos;ve taken
-              from acquisition to completion.
+              Each of these started as an idea about a building or a block. We acquired, planned, executed, and stabilized them, and we'd happily walk you through any of them in person. The summaries here are the short version.
             </LineReveal>
           </div>
         </div>
@@ -653,9 +628,7 @@ export function PortfolioPage() {
               stagger={0.05}
               duration={0.9}
             >
-              Five sites underwritten with the same rigor, sitting at different
-              points in the cycle — sourcing, design, permitting, breaking
-              ground. One standard, advancing on its own timeline.
+              We currently have five sites in active pre-development. They sit at different points in the cycle, from sourcing and design to permitting and breaking ground, but they're all underwritten the same way we do everything else: carefully.
             </LineReveal>
           </div>
         </div>

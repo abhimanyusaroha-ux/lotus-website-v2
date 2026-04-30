@@ -17,7 +17,7 @@ const properties = [
     name: "Fulton District Mixed-Use",
     location: "Completed · Fulton Market, Chicago",
     description:
-      "A value-add mixed-use acquisition in Chicago's fastest-growing commercial corridor, repositioned in 2024.",
+      "We acquired this property in 2023, modernized the systems, and re-tenanted the ground floor with operators who fit the neighborhood.",
     image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80",
     alt: "Fulton District mixed-use project, Fulton Market, Chicago",
   },
@@ -26,7 +26,7 @@ const properties = [
     name: "Logan Square Multifamily",
     location: "Completed · Logan Square, Chicago",
     description:
-      "Twenty-four units of transit-adjacent residential, acquired off-market and renovated in under twelve months.",
+      "Twenty-four residential units we bought off-market and brought to ninety-six percent occupancy within sixty days.",
     image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80",
     alt: "Logan Square multifamily development, Chicago",
   },
@@ -35,7 +35,7 @@ const properties = [
     name: "West Loop Value-Add",
     location: "Completed · West Loop, Chicago",
     description:
-      "A ground-up reposition of an underutilized industrial asset, now fully stabilized and cash-flowing.",
+      "A ground-up reposition of an industrial building we took down to the structure and built back as mixed-use loft residential.",
     image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=80",
     alt: "West Loop value-add acquisition, Chicago",
   },
@@ -44,9 +44,9 @@ const properties = [
     name: "Wicker Park Residential",
     location: "Completed · Wicker Park, Chicago",
     description:
-      "Nine residential units in one of Chicago's most resilient neighborhoods, acquired and renovated in 2023.",
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80",
-    alt: "Wicker Park residential development, Chicago",
+      "Nine residential units we renovated while preserving the original masonry, and sold to a long-term hold partner.",
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
+    alt: "Wicker Park residential project, Chicago",
   },
 ];
 
@@ -175,55 +175,22 @@ export function Portfolio() {
       {/* ── Intro — normal flow ─────────────────────────────────────── */}
       <div className="pt-[160px] max-[640px]:pt-24 pb-14 max-[640px]:pb-10 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
         <SectionMarker label="Select Portfolio" />
-        <div className="mt-8">
+        <div className="mt-8 max-w-[560px]">
           <LineReveal
             as="h2"
-            className="font-sans font-bold text-ink"
+            className="display-md font-sans font-bold text-ink"
             stagger={0.08}
             duration={1.0}
           >
-            <span
-              style={{
-                fontSize: "clamp(36px, 4vw, 56px)",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-                display: "block",
-              }}
-            >
-              Built
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(36px, 4vw, 56px)",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-                display: "block",
-              }}
-            >
-              deliberately.
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(36px, 4vw, 56px)",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-                display: "block",
-                fontStyle: "italic",
-              }}
-            >
-              Held with
-            </span>
-            <span
-              style={{
-                fontSize: "clamp(36px, 4vw, 56px)",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-                display: "block",
-                fontStyle: "italic",
-              }}
-            >
-              conviction.
-            </span>
+            The work, project by project.
+          </LineReveal>
+          <LineReveal
+            as="p"
+            className="body-lg font-sans text-gray-600 mt-6"
+            stagger={0.05}
+            duration={0.9}
+          >
+            A snapshot of the four projects we've taken from acquisition through completion. Each one taught us something we've carried into the next.
           </LineReveal>
         </div>
       </div>

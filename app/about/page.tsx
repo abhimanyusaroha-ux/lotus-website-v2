@@ -19,18 +19,12 @@ export default function AboutPage() {
     <main>
       <AboutHero />
       <AboutBridge>
-        Lotus Property Group was founded on a simple belief — that
-        Chicago&apos;s middle market deserved the same rigor and discipline
-        that institutional capital brings to larger deals. Two years later,
-        that belief is a portfolio of nine projects and a growing circle of
-        partners who share it.
+        What follows is the short version of why we started Lotus, what we've learned in the first two years, and where we go from here.
       </AboutBridge>
       <AboutStory />
       {/* <AboutPortfolio /> */}
       <AboutBridge>
-        We measure ourselves the way our partners do — by what we&apos;ve
-        built, how fast we move, and whether we do what we said we would. The
-        numbers below are the scorecard we hold ourselves to.
+        Two years in, the way we work has produced numbers we're comfortable putting in front of any investor.
       </AboutBridge>
       <AboutStats />
       <AboutClosing />

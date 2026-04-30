@@ -37,8 +37,7 @@ export function AboutClosing() {
     >
       <div ref={innerRef} className="flex flex-col items-center">
         <p className="body-lg font-sans italic text-ink text-center max-w-[560px]">
-          Lotus is built on a thesis we&apos;re willing to hold for a decade.
-          Our partners hold it with us.
+          The firm we're building is one we want to be running ten years from now. The partners who've come in with us so far feel the same way, which is what makes this worth doing.
         </p>
         <div className="mt-8">
           <PillButton href="/investors">Become a partner →</PillButton>

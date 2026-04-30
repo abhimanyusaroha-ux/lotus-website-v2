@@ -88,7 +88,7 @@ export function AboutHero() {
                   display: "block",
                 }}
               >
-                A Chicago
+                The story of how
               </span>
               <span
                 style={{
@@ -98,39 +98,7 @@ export function AboutHero() {
                   display: "block",
                 }}
               >
-                real estate
-              </span>
-              <span
-                style={{
-                  fontSize: "clamp(36px, 4vw, 56px)",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  display: "block",
-                }}
-              >
-                firm, built
-              </span>
-              <span
-                style={{
-                  fontSize: "clamp(36px, 4vw, 56px)",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  display: "block",
-                  fontStyle: "italic",
-                }}
-              >
-                on
-              </span>
-              <span
-                style={{
-                  fontSize: "clamp(36px, 4vw, 56px)",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  display: "block",
-                  fontStyle: "italic",
-                }}
-              >
-                conviction.
+                Lotus came together.
               </span>
             </LineReveal>
           </div>
@@ -175,10 +143,7 @@ export function AboutHero() {
               stagger={0.05}
               duration={0.9}
             >
-              Lotus acquires, develops, and manages residential and mixed-use
-              real estate across Chicago&apos;s most resilient neighborhoods.
-              Founded in 2023. Nine projects underway or complete. One
-              standard.
+              We acquire, develop, and operate residential and mixed-use properties across Chicago. We started the firm in 2023 because we believed there was a better way to do this work. So far, the buildings we've finished agree with us.
             </LineReveal>
           </div>
         </div>

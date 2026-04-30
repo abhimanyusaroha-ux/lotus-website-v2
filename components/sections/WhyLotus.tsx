@@ -31,15 +31,24 @@ export function WhyLotus() {
 
       {/* Statement */}
       <div className="mt-12 grid grid-cols-12 max-[1024px]:grid-cols-1">
-        <LineReveal
-          as="h2"
-          className="col-span-9 max-[1024px]:col-span-1 display-md font-sans font-bold text-ink"
-          stagger={0.1}
-          duration={1.1}
-        >
-          Built on conviction.
-          <span style={{ fontStyle: "italic", display: "block" }}>Measured by returns.</span>
-        </LineReveal>
+        <div className="col-span-9 max-[1024px]:col-span-1">
+          <LineReveal
+            as="h2"
+            className="display-md font-sans font-bold text-ink"
+            stagger={0.1}
+            duration={1.1}
+          >
+            What two years has built.
+          </LineReveal>
+          <LineReveal
+            as="p"
+            className="body-lg font-sans text-gray-600 mt-6 max-w-[560px]"
+            stagger={0.05}
+            duration={0.9}
+          >
+            The numbers below aren't ambitious targets. They're what we've actually done since starting the firm. We share them because they say more about how we work than any tagline could.
+          </LineReveal>
+        </div>
       </div>
 
       {/* Stats — 4-col desktop, 2×2 mobile */}
@@ -50,9 +59,9 @@ export function WhyLotus() {
       >
         {[
           { target: 4, suffix: "", label: "Projects completed since 2023" },
-          { target: 5, suffix: "", label: "In active pre-development" },
-          { target: 48, suffix: "hrs", label: "Average response to opportunities" },
-          { target: 100, suffix: "%", label: "Investor capital deployed on schedule" },
+          { target: 5, suffix: "", label: "Currently in pre-development" },
+          { target: 48, suffix: "hrs", label: "Average response time on new opportunities" },
+          { target: 100, suffix: "%", label: "Of investor capital deployed on schedule" },
         ].map((stat, i) => (
           <div
             key={i}
@@ -101,10 +110,10 @@ export function WhyLotus() {
       >
         <div className="col-start-7 col-span-6 max-[1024px]:col-start-1 max-[1024px]:col-span-1">
           <blockquote className="body-lg font-sans text-gray-600 italic max-w-[520px]">
-            &ldquo;We launched Lotus in 2023 because Chicago&apos;s middle-market
-            was chronically underserved by institutional capital. Two years in,
-            we&apos;ve closed four acquisitions and broken ground on five more —
-            each one disciplined, each one deliberate.&rdquo;
+            &ldquo;We launched Lotus in 2023 because Chicago&apos;s middle market
+            was being overlooked by institutional capital. Two years in,
+            we&apos;ve closed four acquisitions and broken ground on five more.
+            We&apos;ve done it by staying disciplined and moving carefully.&rdquo;
           </blockquote>
           <div className="mt-6">
             <TextButton href="/about">Read our philosophy</TextButton>

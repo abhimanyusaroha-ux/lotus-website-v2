@@ -15,13 +15,7 @@ export default function Investors() {
           Investor Portal
         </h1>
         <p className="body-md font-sans text-gray-600 text-center max-w-[400px] mt-6">
-          Investor login is coming soon. For access, contact us at{" "}
-          <a
-            href="mailto:hello@lotuspropertygroup.com"
-            className="text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all duration-150"
-          >
-            hello@lotuspropertygroup.com
-          </a>
+          The investor portal is open to current partners. If you're not in yet and would like to be considered, please reach out through the <Link href="/contact" className="text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all duration-150">contact page</Link>. We work with a small group and add new partners carefully.
         </p>
         <div className="mt-12">
           <Link

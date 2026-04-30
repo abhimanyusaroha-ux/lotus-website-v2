@@ -59,7 +59,7 @@ export function Investors() {
             stagger={0.08}
             duration={1.0}
           >
-            Selected opportunities, offered to partners.
+            If you're an investor, here's how we work together.
           </LineReveal>
           <LineReveal
             as="p"
@@ -67,10 +67,7 @@ export function Investors() {
             stagger={0.05}
             duration={0.9}
           >
-            Lotus works with a small group of accredited investors on each
-            acquisition. Our investor portal gives you real-time access to fund
-            performance, K-1 tax documents, capital call notices, and wire
-            instructions. Access is by invitation.
+            We co-invest on every deal alongside a small group of accredited partners who came in early and have stayed with us. Each opportunity is offered one at a time, and access is by introduction. If we haven't met yet and you're interested in being considered, send us a note through our contact page.
           </LineReveal>
           <div className="mt-10">
             <PillButton href="/investors">Investor portal</PillButton>

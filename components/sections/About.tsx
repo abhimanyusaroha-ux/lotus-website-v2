@@ -53,8 +53,7 @@ export function About() {
           stagger={0.1}
           duration={1.1}
         >
-          Not speculation.
-          <span style={{ fontStyle: "italic", display: "block" }}>Conviction.</span>
+          Real estate, but built like a business we want to keep.
         </LineReveal>
       </div>
 
@@ -67,11 +66,7 @@ export function About() {
             stagger={0.05}
             duration={0.9}
           >
-            Lotus Property Group is a Chicago-based real estate investment firm
-            focused on value-add acquisitions and ground-up development. We
-            target opportunities where disciplined underwriting and active
-            management produce superior risk-adjusted returns — not just market
-            appreciation.
+            Lotus started in 2023 with a thesis that Chicago's middle market was being passed over by serious capital. The big institutional players were chasing larger deals. The small operators didn't have the discipline to underwrite carefully. We saw a gap, and we set out to fill it with a firm that takes both the analysis and the buildings seriously.
           </LineReveal>
           <LineReveal
             as="p"
@@ -79,10 +74,7 @@ export function About() {
             stagger={0.05}
             duration={0.9}
           >
-            We work with a select group of accredited investors on every
-            transaction. Four projects completed. Five currently in
-            pre-development. Each one chosen against the same criteria:
-            location quality, deal structure, and timing.
+            Two years in, we've completed four projects and have five more in active pre-development. Every one of them was chosen for the same three reasons: the location made sense for the long term, the deal was structured fairly, and we believed we could improve the asset through active management.
           </LineReveal>
           <div className="mt-8">
             <TextButton href="/about">Read our approach</TextButton>

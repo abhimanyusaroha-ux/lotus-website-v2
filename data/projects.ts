@@ -28,14 +28,13 @@ export const projects: Project[] = [
     status: "Completed",
     type: "Mixed-Use",
     summary:
-      "A value-add mixed-use acquisition in Chicago's fastest-growing commercial corridor. Lotus repositioned the asset over fourteen months, modernizing common areas, replacing mechanical systems, and re-tenanting the ground-floor retail. The project completed on schedule and is fully stabilized.",
+      "We acquired this property in early 2023, when Fulton Market was already on its way to becoming Chicago's most active commercial corridor but hadn't fully gentrified yet. The building had good bones, terrible mechanical systems, and a tenant mix that wasn't pulling its weight. Over fourteen months we modernized the systems, refreshed the common areas, and re-tenanted the ground floor with operators who fit the neighborhood. The asset is fully stabilized today and is generating returns ahead of our underwritten case.",
     deliverables: ["Acquisition", "Repositioning", "Asset Management"],
     facts: [
       { label: "Type", value: "Mixed-Use" },
       { label: "Location", value: "Fulton Market, Chicago" },
-      { label: "Status", value: "Completed" },
-      { label: "Year Completed", value: "2024" },
-      { label: "Scope", value: "14 months · Full repositioning" },
+      { label: "Status", value: "Completed, 2024" },
+      { label: "Scope", value: "Repositioning, fourteen months from acquisition to stabilization" },
     ],
     heroImage: {
       src: u("photo-1486325212027-8081e485255e"),
@@ -84,14 +83,13 @@ export const projects: Project[] = [
     status: "Completed",
     type: "Multifamily",
     summary:
-      "Twenty-four units of transit-adjacent residential, acquired off-market in early 2024. Lotus completed a full interior renovation and lease-up within twelve months. Occupancy reached 96% within sixty days of completion.",
+      "Twenty-four residential units in a transit-adjacent building we bought off-market in early 2024. The seller was a family operator who wanted a clean exit and a buyer who would respect the building's history. We renovated all unit interiors, upgraded the common areas, and brought the property to market with new pricing. We hit ninety-six percent occupancy within sixty days of relaunch and have held it there since.",
     deliverables: ["Acquisition", "Renovation", "Lease-Up"],
     facts: [
       { label: "Type", value: "Multifamily" },
       { label: "Location", value: "Logan Square, Chicago" },
-      { label: "Status", value: "Completed" },
-      { label: "Year Completed", value: "2024" },
-      { label: "Scope", value: "12 months · Interior renovation + lease-up" },
+      { label: "Status", value: "Completed, 2024" },
+      { label: "Scope", value: "Acquisition, renovation, lease-up" },
     ],
     heroImage: {
       src: u("photo-1600596542815-ffad4c1539a9"),
@@ -140,14 +138,13 @@ export const projects: Project[] = [
     status: "Completed",
     type: "Loft Residential",
     summary:
-      "A ground-up reposition of an underutilized industrial asset, redeveloped into mixed-use loft residential. The project required a full structural retrofit and façade restoration. Now fully stabilized and cash-flowing.",
+      "A ground-up reposition of an industrial building that had been sitting underused for years. We took it down to the structure, restored the original façade, and built it back as mixed-use loft residential. This was our most technically complex project to date, and it taught us a lot about working with older Chicago construction. The project is fully stabilized and cash-flowing on schedule.",
     deliverables: ["Ground-Up Development", "Stabilization"],
     facts: [
-      { label: "Type", value: "Loft Residential" },
+      { label: "Type", value: "Loft Residential, Mixed-Use" },
       { label: "Location", value: "West Loop, Chicago" },
-      { label: "Status", value: "Completed" },
-      { label: "Year Completed", value: "2023" },
-      { label: "Scope", value: "Structural retrofit + façade restoration" },
+      { label: "Status", value: "Completed, 2023" },
+      { label: "Scope", value: "Ground-up reposition, structural retrofit, façade restoration" },
     ],
     heroImage: {
       src: u("photo-1600047509807-ba8f99d2cdde"),
@@ -196,17 +193,13 @@ export const projects: Project[] = [
     status: "Completed",
     type: "Residential",
     summary:
-      "Nine residential units in one of Chicago's most resilient neighborhoods, acquired and renovated in 2023. The project preserved the building's original masonry while modernizing every interior system. Sold to a long-term hold partner in early 2024.",
+      "Nine residential units in one of Chicago's most resilient neighborhoods. We acquired the building in 2023 when an estate was looking for a quiet sale, renovated every interior system while preserving the original masonry, and sold it to a long-term hold partner in early 2024. The deal closed at a meaningful premium to our basis and we maintain a relationship with the buyer.",
     deliverables: ["Acquisition", "Renovation"],
     facts: [
       { label: "Type", value: "Residential" },
       { label: "Location", value: "Wicker Park, Chicago" },
-      { label: "Status", value: "Completed" },
-      { label: "Year Completed", value: "2023" },
-      {
-        label: "Scope",
-        value: "Masonry preservation + interior modernization",
-      },
+      { label: "Status", value: "Completed, 2023" },
+      { label: "Scope", value: "Acquisition, renovation, sale" },
     ],
     heroImage: {
       src: u("photo-1613490493576-7fde63acd811"),

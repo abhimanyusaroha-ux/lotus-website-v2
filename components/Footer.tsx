@@ -80,7 +80,7 @@ export function Footer() {
           <div className="flex items-start gap-3">
             <LotusLogoMark size={16} className="text-gray-400 flex-shrink-0 mt-[2px]" />
             <p className="body-sm font-sans text-gray-400">
-              © 2026 Lotus Property Group LLC · Real Estate Investment Firm · Chicago, IL
+              A Chicago real estate investment firm. Founded 2023.
             </p>
           </div>
           <div className="flex items-center gap-5 flex-shrink-0">

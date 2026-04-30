@@ -52,7 +52,7 @@ export function AboutStory() {
             stagger={0.08}
             duration={1.0}
           >
-            A different way to invest in Chicago.
+            Why we started in Chicago.
           </LineReveal>
           <LineReveal
             as="p"
@@ -60,12 +60,7 @@ export function AboutStory() {
             stagger={0.05}
             duration={0.9}
           >
-            Lotus was founded in 2023 with a simple thesis: Chicago&apos;s
-            middle market — the slice between large institutional capital and
-            small-time landlords — was underserved by disciplined, design-led
-            operators. We started with a single building. We now have four
-            completed projects and five more underway, all guided by the same
-            standard.
+            Chicago has a real estate market that doesn't get the institutional attention it deserves. The biggest funds are focused on coastal cities. The smallest landlords don't have the underwriting discipline to make good decisions consistently. In between sits a market full of buildings worth owning, owners ready to sell to the right buyer, and neighborhoods that have been quietly improving for a decade. That's where we work.
           </LineReveal>
         </div>
         <div
@@ -103,7 +98,7 @@ export function AboutStory() {
             stagger={0.08}
             duration={1.0}
           >
-            We move slowly on purpose.
+            Our pace is part of the strategy.
           </LineReveal>
           <LineReveal
             as="p"
@@ -111,11 +106,7 @@ export function AboutStory() {
             stagger={0.05}
             duration={0.9}
           >
-            We don&apos;t optimize for transaction volume. We optimize for
-            outcomes — for the partners who fund us, for the residents who
-            live in our buildings, and for the neighborhoods we operate in.
-            Every acquisition is underwritten with the assumption that
-            we&apos;ll hold it longer than the spreadsheet says we should.
+            Most real estate firms measure themselves by how many deals they close. We measure ourselves by how the deals perform years after closing. That difference shapes everything we do, from how we underwrite, to how long we hold, to how we treat the residents and neighborhoods we operate in. It's slower work, but the buildings hold up better and the partners come back.
           </LineReveal>
         </div>
       </div>
