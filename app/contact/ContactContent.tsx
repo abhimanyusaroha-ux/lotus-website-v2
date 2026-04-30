@@ -123,7 +123,7 @@ export function ContactContent() {
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-canvas relative">
-      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center px-6 py-12 md:pl-[48px] md:pr-[64px] md:py-[64px] xl:pl-[80px]">
+      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center py-12 min-[768px]:py-[64px] pl-[120px] max-[1024px]:pl-12 max-[640px]:px-6 pr-[64px] max-[1024px]:pr-12">
         <div className="w-full max-w-[560px] mx-auto xl:mx-0 xl:max-w-none">
           <div className="max-w-[560px]">
             <p
