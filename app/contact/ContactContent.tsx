@@ -123,7 +123,7 @@ export function ContactContent() {
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-canvas relative">
-      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center py-12 min-[768px]:py-[64px] pl-[120px] max-[1024px]:pl-12 max-[640px]:px-6 pr-[64px] max-[1024px]:pr-12">
+      <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-center py-12 min-[768px]:py-[64px] pl-[max(120px,calc((100vw-1440px)/2+120px))] max-[1024px]:!pl-12 max-[640px]:!px-6 pr-[64px] max-[1024px]:pr-12">
         <div className="w-full max-w-[560px] mx-auto xl:mx-0 xl:max-w-none">
           <div className="max-w-[560px]">
             <p
@@ -284,10 +284,10 @@ export function ContactContent() {
         </div>
       </div>
 
-      <div className="hidden md:block md:w-[45%] xl:w-1/2 h-screen sticky top-0 overflow-hidden bg-gray-100">
-        <div 
-          ref={imageRef} 
-          className="absolute inset-0 w-full h-full"
+      <div className="hidden md:block md:w-[45%] xl:w-1/2 h-screen sticky top-0 bg-canvas pr-[max(0px,calc((100vw-1440px)/2+120px))]">
+        <div
+          ref={imageRef}
+          className="relative w-full h-full overflow-hidden bg-gray-100"
           style={{ clipPath: "inset(0 100% 0 0)" }}
         >
           <div ref={imageInnerRef} className="absolute inset-0 w-full h-[110%] -top-[5%]">
