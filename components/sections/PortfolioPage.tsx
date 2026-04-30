@@ -329,13 +329,20 @@ function UpcomingCard({
   cardRef: (el: HTMLDivElement | null) => void;
 }) {
   return (
-    <div ref={cardRef} className="portfolio-card block">
+    <div ref={cardRef} className="portfolio-card group block">
       <div
-        className="portfolio-img relative w-full overflow-hidden min-h-[400px] max-[640px]:min-h-[280px] bg-gray-200 flex flex-col items-center justify-center"
+        className="portfolio-img relative w-full overflow-hidden min-h-[400px] max-[640px]:min-h-[280px] bg-gray-200"
         style={{ aspectRatio: "16 / 10" }}
       >
-        <div className="portfolio-img-slide flex items-center justify-center">
-          <span className="caption font-sans text-gray-600 uppercase tracking-[0.18em]">
+        <Image
+          src={project.image}
+          alt={project.alt}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-white/85 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out">
+          <span className="caption font-sans text-ink uppercase tracking-[0.18em]">
             Coming Soon
           </span>
         </div>
