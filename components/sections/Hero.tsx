@@ -3,8 +3,11 @@
 import { useEffect, useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import LineReveal from "../LineReveal";
 import { SectionMarker } from "../SectionMarker";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type HeroProps = {
   fontLabel?: string;
@@ -29,6 +32,7 @@ export function Hero({
   const wordmarkInnerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const imageInnerRef = useRef<HTMLImageElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mask = wordmarkMaskRef.current;
@@ -59,6 +63,32 @@ export function Hero({
       },
       0.9
     );
+
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const wrapper = imageWrapperRef.current;
+      if (!wrapper) return;
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: document.body,
+          start: 0,
+          end: 600,
+          scrub: 0.6,
+        },
+      });
+      scrollTl.fromTo(
+        wrapper,
+        { width: "80vw" },
+        { width: "100vw", ease: "none" }
+      );
+      return () => {
+        scrollTl.kill();
+      };
+    });
+
+    return () => {
+      mm.revert();
+    };
   }, []);
 
   return (
@@ -125,10 +155,17 @@ export function Hero({
           </LineReveal>
         </div>
 
-        {/* Hero image — 16:9 desktop, 4:3 mobile */}
+      </div>
+
+      {/* Hero image — breaks out of padded container for scroll-driven width expansion */}
+      <div
+        ref={imageWrapperRef}
+        className="mt-10 mx-auto"
+        style={{ width: "80vw" }}
+      >
         <div
           ref={imageRef}
-          className="mt-10 relative w-full overflow-hidden aspect-video max-[640px]:aspect-[4/3]"
+          className="relative w-full overflow-hidden aspect-video max-[640px]:aspect-[4/3]"
           style={{ transformOrigin: "center" }}
         >
           <Image
@@ -140,7 +177,9 @@ export function Hero({
             sizes="100vw"
           />
         </div>
+      </div>
 
+      <div className="max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
         {/* Scroll indicator */}
         <div className="mt-5 flex items-center gap-3 pb-6">
           <div
