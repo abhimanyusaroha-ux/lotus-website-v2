@@ -570,7 +570,7 @@ export function PortfolioPage() {
 
       {/* Project grid */}
       <section
-        className="pb-[160px] max-[768px]:pb-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+        className="pb-[100px] max-[768px]:pb-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
         aria-label="Our projects"
       >
         <div className="flex items-center">
@@ -604,7 +604,7 @@ export function PortfolioPage() {
 
       {/* Upcoming projects */}
       <section
-        className="pb-[160px] max-[768px]:pb-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+        className="pb-[100px] max-[768px]:pb-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
         aria-label="Upcoming projects"
       >
         <div className="grid grid-cols-12 gap-x-8 max-[768px]:grid-cols-1">

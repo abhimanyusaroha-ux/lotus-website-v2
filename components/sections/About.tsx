@@ -40,7 +40,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+      className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
       {/* Eyebrow + heading */}
       <div className="grid grid-cols-12 gap-x-8 max-[1024px]:grid-cols-1">

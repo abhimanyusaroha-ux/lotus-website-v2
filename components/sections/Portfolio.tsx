@@ -185,7 +185,7 @@ export function Portfolio() {
   return (
     <section id="portfolio">
       {/* ── Intro — normal flow ─────────────────────────────────────── */}
-      <div className="pt-[160px] max-[640px]:pt-24 pb-14 max-[640px]:pb-10 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
+      <div className="pt-[100px] max-[640px]:pt-16 pb-14 max-[640px]:pb-10 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6">
         <SectionMarker label="Select Portfolio" />
         <div className="mt-8 max-w-[560px]">
           <LineReveal

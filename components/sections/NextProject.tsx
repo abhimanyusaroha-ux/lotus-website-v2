@@ -35,7 +35,7 @@ export function NextProject({ project, previous }: Props) {
   return (
     <section
       aria-label="Project navigation"
-      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+      className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
       <div
         className={`flex items-start gap-12 max-[640px]:flex-col max-[640px]:gap-10 ${

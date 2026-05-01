@@ -40,7 +40,7 @@ export function AboutStory() {
     <section
       id="story"
       aria-label="Our story"
-      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
+      className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
       {/* ── 2A — text-left, image-right ───────────────────────────── */}
       <div className="grid grid-cols-12 gap-x-8 gap-y-10 max-[1024px]:grid-cols-1 items-start">

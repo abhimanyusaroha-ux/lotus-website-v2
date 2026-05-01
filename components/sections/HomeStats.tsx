@@ -209,7 +209,7 @@ export function HomeStats() {
       ref={sectionRef}
       id="why"
       onMouseLeave={() => setActiveIndex(null)}
-      className="py-[160px] max-[640px]:py-24 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6 relative"
+      className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6 relative"
     >
       <p
         ref={eyebrowRef}
@@ -288,23 +288,29 @@ export function HomeStats() {
         ))}
       </div>
 
-      {/* Mobile fallback: 2×2 grid, no images */}
-      <div className="mt-16 max-[640px]:mt-12 hidden max-[1024px]:grid grid-cols-2 max-[640px]:gap-y-12 gap-y-14 gap-x-8">
-        {stats.map((stat) => (
-          <div key={stat.label} className="border-t border-gray-200 pt-6">
-            <div
-              className="font-sans font-bold text-ink"
+      {/* Mobile fallback: same horizontal label-left / stat-right structure
+          as desktop, just no images. */}
+      <div className="mt-16 max-[640px]:mt-12 hidden max-[1024px]:block">
+        {stats.map((stat, i) => (
+          <div
+            key={stat.label}
+            className={`flex justify-between items-baseline gap-6 py-6 border-t border-gray-200 ${
+              i === stats.length - 1 ? "border-b" : ""
+            }`}
+          >
+            <span className="body-sm font-sans uppercase tracking-[0.06em] text-gray-400 max-w-[55%]">
+              {stat.label}
+            </span>
+            <span
+              className="font-sans font-bold text-ink whitespace-nowrap"
               style={{
-                fontSize: "clamp(40px, 7vw, 64px)",
+                fontSize: "clamp(36px, 8vw, 56px)",
                 lineHeight: 0.95,
                 letterSpacing: "-0.04em",
               }}
             >
               <Counter target={stat.target} suffix={stat.suffix} duration={2} />
-            </div>
-            <p className="body-sm font-sans uppercase tracking-[0.06em] text-gray-400 mt-3">
-              {stat.label}
-            </p>
+            </span>
           </div>
         ))}
       </div>
