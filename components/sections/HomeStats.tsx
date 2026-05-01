@@ -294,7 +294,7 @@ export function HomeStats() {
         {stats.map((stat, i) => (
           <div
             key={stat.label}
-            className={`flex justify-between items-baseline gap-6 py-6 border-t border-gray-200 ${
+            className={`flex justify-between items-center gap-6 py-6 border-t border-gray-200 ${
               i === stats.length - 1 ? "border-b" : ""
             }`}
           >
