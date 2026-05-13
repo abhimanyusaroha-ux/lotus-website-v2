@@ -74,32 +74,13 @@ export function AboutHero() {
             </div>
             <LineReveal
               as="h1"
-              className="font-sans font-bold text-ink mt-2"
+              className="display-md font-sans text-ink mt-2"
               trigger="mount"
               delay={0.6}
               stagger={0.1}
               duration={1.1}
             >
-              <span
-                style={{
-                  fontSize: "clamp(36px, 4vw, 56px)",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  display: "block",
-                }}
-              >
-                The story of how
-              </span>
-              <span
-                style={{
-                  fontSize: "clamp(36px, 4vw, 56px)",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  display: "block",
-                }}
-              >
-                Lotus came together.
-              </span>
+              The story of how Lotus came together.
             </LineReveal>
           </div>
 
@@ -143,7 +124,7 @@ export function AboutHero() {
               stagger={0.05}
               duration={0.9}
             >
-              We acquire, develop, and operate residential and mixed-use properties across Chicago. We started the firm in 2023 because we believed there was a better way to do this work. So far, the buildings we've finished agree with us.
+              Lotus Property Group LLC is a female-owned local developer founded by Shreya Singh in 2017.
             </LineReveal>
           </div>
         </div>

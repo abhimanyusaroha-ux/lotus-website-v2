@@ -1,113 +1,119 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { SectionMarker } from "../SectionMarker";
-import { EditorialImage } from "../EditorialImage";
 import LineReveal from "../LineReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function AboutStory() {
-  const img1Ref = useRef<HTMLDivElement>(null);
-  const img2Ref = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const imgInnerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    [
-      { ref: img1Ref, delay: 0 },
-      { ref: img2Ref, delay: 0.1 },
-    ].forEach(({ ref, delay }) => {
-      const el = ref.current;
-      if (!el) return;
-      gsap.fromTo(
-        el,
+    if (imgRef.current && imgInnerRef.current) {
+      const t1 = gsap.fromTo(
+        imgRef.current,
         { clipPath: "inset(100% 0 0 0)" },
         {
           clipPath: "inset(0% 0 0 0)",
-          duration: 1.4,
-          delay,
-          ease: "expo.out",
-          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          duration: 1.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: imgRef.current,
+            start: "top 85%",
+            once: true,
+          },
         }
       );
-    });
+      const t2 = gsap.fromTo(
+        imgInnerRef.current,
+        { scale: 1.1 },
+        {
+          scale: 1,
+          duration: 1.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: imgRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+      return () => {
+        t1.scrollTrigger?.kill();
+        t1.kill();
+        t2.scrollTrigger?.kill();
+        t2.kill();
+      };
+    }
   }, []);
 
   return (
     <section
-      id="story"
-      aria-label="Our story"
+      id="about-us"
+      aria-label="About Lotus Property Group"
       className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
-      {/* ── 2A — text-left, image-right ───────────────────────────── */}
-      <div className="grid grid-cols-12 gap-x-8 gap-y-10 max-[1024px]:grid-cols-1 items-start">
-        <div className="col-span-5 max-[1024px]:col-span-1">
-          <SectionMarker label="Our Story" />
+      <div className="grid grid-cols-12 gap-x-12 gap-y-12 max-[1024px]:grid-cols-1 items-start">
+        {/* Left column — heading + body copy, sticky on desktop */}
+        <div className="col-span-6 max-[1024px]:col-span-1 min-[1025px]:sticky min-[1025px]:top-[120px]">
           <LineReveal
             as="h2"
-            className="display-md font-sans font-bold text-ink mt-6 max-w-[480px]"
+            className="display-md font-sans font-bold text-ink"
             stagger={0.08}
             duration={1.0}
           >
-            Why we started in Chicago.
+            About Us
           </LineReveal>
-          <LineReveal
-            as="p"
-            className="body-md font-sans text-ink-muted mt-8 max-w-[440px]"
-            stagger={0.05}
-            duration={0.9}
-          >
-            Chicago has a real estate market that doesn't get the institutional attention it deserves. The biggest funds are focused on coastal cities. The smallest landlords don't have the underwriting discipline to make good decisions consistently. In between sits a market full of buildings worth owning, owners ready to sell to the right buyer, and neighborhoods that have been quietly improving for a decade. That's where we work.
-          </LineReveal>
-        </div>
-        <div
-          ref={img1Ref}
-          className="col-start-7 col-span-6 max-[1024px]:col-start-1 max-[1024px]:col-span-1"
-          style={{ overflow: "hidden" }}
-        >
-          <EditorialImage
-            src="https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=2400&q=80"
-            caption="Chicago, IL"
-            aspectRatio="3/2"
-            alt="Chicago skyline"
-          />
-        </div>
-      </div>
 
-      {/* ── 2B — image-left, text-right ───────────────────────────── */}
-      <div className="mt-24 max-[640px]:mt-16 grid grid-cols-12 gap-x-8 gap-y-10 max-[1024px]:grid-cols-1 items-start">
-        <div
-          ref={img2Ref}
-          className="col-span-6 max-[1024px]:col-span-1"
-          style={{ overflow: "hidden" }}
-        >
-          <EditorialImage
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=2400&q=80"
-            caption="Project review"
-            aspectRatio="3/2"
-            alt="Architectural blueprint and project review"
-          />
+          <div className="mt-12 max-w-[520px] space-y-6">
+            <LineReveal
+              as="p"
+              className="body-md font-sans font-light text-ink-muted"
+              stagger={0.04}
+              duration={0.9}
+            >
+              As a female-owned local developer, Lotus Property Group LLC, founded by Shreya Singh, is a deeply committed developer to making a difference in East Garfield Park, North Lawndale, Humboldt Park, and even more neighborhoods on the West side of Chicago. Since our establishment in 2017, we have been dedicated to providing affordable rental and market-rate housing options tailored specifically to these neighborhoods&apos; needs.
+            </LineReveal>
+
+            <LineReveal
+              as="p"
+              className="body-md font-sans font-light text-ink-muted"
+              stagger={0.04}
+              duration={0.9}
+              delay={0.2}
+            >
+              Our mission goes beyond just building structures; it&apos;s about creating spaces where people feel safe, comfortable, and proud to call home. By offering a mix of affordable and market-rate housing, we strive to foster diverse and inclusive neighborhoods where everyone has access to quality housing options. With each new development, we&apos;re constructing buildings, building futures, and strengthening communities, and we are committed to making a meaningful difference in the lives of those we serve.
+            </LineReveal>
+          </div>
         </div>
+
+        {/* Right column — interior image */}
         <div className="col-start-8 col-span-5 max-[1024px]:col-start-1 max-[1024px]:col-span-1">
-          <LineReveal
-            as="h2"
-            className="display-md font-sans font-bold text-ink max-w-[440px]"
-            stagger={0.08}
-            duration={1.0}
+          <div
+            ref={imgRef}
+            className="relative w-full overflow-hidden"
+            style={{ aspectRatio: "4 / 5", clipPath: "inset(100% 0 0 0)" }}
           >
-            Our pace is part of the strategy.
-          </LineReveal>
-          <LineReveal
-            as="p"
-            className="body-md font-sans text-ink-muted mt-8 max-w-[440px]"
-            stagger={0.05}
-            duration={0.9}
-          >
-            Most real estate firms measure themselves by how many deals they close. We measure ourselves by how the deals perform years after closing. That difference shapes everything we do, from how we underwrite, to how long we hold, to how we treat the residents and neighborhoods we operate in. It's slower work, but the buildings hold up better and the partners come back.
-          </LineReveal>
+            <div
+              ref={imgInnerRef}
+              className="absolute inset-0"
+              style={{ transform: "scale(1.1)", transformOrigin: "center" }}
+            >
+              <Image
+                src="/team/shreya-singh.jpg"
+                fill
+                alt="Shreya Singh, founder of Lotus Property Group"
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

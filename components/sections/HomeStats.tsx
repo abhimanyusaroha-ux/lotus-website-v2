@@ -60,6 +60,8 @@ export function HomeStats() {
   const underlineRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const floatingImageRef = useRef<HTMLDivElement>(null);
+  const spacerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const activeSpacerRectRef = useRef<DOMRect | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -85,9 +87,30 @@ export function HomeStats() {
     const xTo = gsap.quickTo(floating, "x", { duration: 0.6, ease: "power3.out" });
     const yTo = gsap.quickTo(floating, "y", { duration: 0.6, ease: "power3.out" });
 
+    const IMG_W = 320;
+    const IMG_H = 400;
+
     const onMove = (e: MouseEvent) => {
-      xTo(e.clientX - 160);
-      yTo(e.clientY - 200);
+      const rect = activeSpacerRectRef.current;
+      // Default: follow cursor centered on it.
+      let targetX = e.clientX - IMG_W / 2;
+      let targetY = e.clientY - IMG_H / 2;
+
+      if (rect) {
+        // Strictly clamp the image's horizontal bounds to the active spacer
+        // so it cannot cross over the label or stat number.
+        targetX = Math.max(rect.left, Math.min(rect.right - IMG_W, targetX));
+        // Center vertically within the active row so it never bleeds into
+        // the row above or below.
+        targetY = rect.top + rect.height / 2 - IMG_H / 2;
+      }
+
+      // Final viewport clamp as a safety net.
+      targetX = Math.max(16, Math.min(window.innerWidth - IMG_W - 16, targetX));
+      targetY = Math.max(16, Math.min(window.innerHeight - IMG_H - 16, targetY));
+
+      xTo(targetX);
+      yTo(targetY);
     };
 
     window.addEventListener("mousemove", onMove);
@@ -159,6 +182,8 @@ export function HomeStats() {
   // ── Per-row hover effects (underline + label color) ──────────────
   const handleEnter = (i: number) => {
     setActiveIndex(i);
+    const spacer = spacerRefs.current[i];
+    if (spacer) activeSpacerRectRef.current = spacer.getBoundingClientRect();
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -182,6 +207,8 @@ export function HomeStats() {
   };
 
   const handleLeave = (i: number) => {
+    setActiveIndex(null);
+    activeSpacerRectRef.current = null;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -251,9 +278,7 @@ export function HomeStats() {
             ref={(el) => {
               rowRefs.current[i] = el;
             }}
-            onMouseEnter={() => handleEnter(i)}
-            onMouseLeave={() => handleLeave(i)}
-            className={`relative flex justify-between items-baseline py-8 cursor-pointer border-t border-gray-200 ${
+            className={`relative flex items-baseline py-8 border-t border-gray-200 ${
               i === stats.length - 1 ? "border-b" : ""
             }`}
           >
@@ -265,6 +290,21 @@ export function HomeStats() {
             >
               {stat.label}
             </span>
+
+            {/* Hover-only zone — middle gap between label and stat.
+                Cursor inside this region triggers the floating image; cursor
+                directly over the label or stat does not. The image is
+                clamped to this zone so it can never overlap the text. */}
+            <div
+              ref={(el) => {
+                spacerRefs.current[i] = el;
+              }}
+              onMouseEnter={() => handleEnter(i)}
+              onMouseLeave={() => handleLeave(i)}
+              className="flex-1 self-stretch cursor-pointer"
+              aria-hidden="true"
+            />
+
             <span
               className="font-sans font-bold text-ink"
               style={{
