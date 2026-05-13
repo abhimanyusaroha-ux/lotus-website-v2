@@ -180,10 +180,7 @@ export function HomeStats() {
   }, []);
 
   // ── Per-row hover effects (underline + label color) ──────────────
-  const handleEnter = (i: number) => {
-    setActiveIndex(i);
-    const spacer = spacerRefs.current[i];
-    if (spacer) activeSpacerRectRef.current = spacer.getBoundingClientRect();
+  const animateRowIn = (i: number) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -206,9 +203,7 @@ export function HomeStats() {
     }
   };
 
-  const handleLeave = (i: number) => {
-    setActiveIndex(null);
-    activeSpacerRectRef.current = null;
+  const animateRowOut = (i: number) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -230,6 +225,109 @@ export function HomeStats() {
       });
     }
   };
+
+  // ── Section-level pointer resolver ───────────────────────────────
+  // Replaces per-row mouseenter/leave handlers so the spacer's vertical
+  // dead zone (rows' padding band) doesn't drop the hover state.
+  // Row + spacer rects are cached and only recomputed on scroll/resize,
+  // so per-frame work in the mousemove handler stays minimal.
+  useEffect(() => {
+    if (!mounted) return;
+    if (typeof window === "undefined") return;
+    if (
+      !window.matchMedia(
+        "(min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference)"
+      ).matches
+    ) {
+      return;
+    }
+
+    type Cached = {
+      top: number;
+      bottom: number;
+      spacerLeft: number;
+      spacerRight: number;
+    };
+    let cache: Cached[] = [];
+
+    const buildCache = () => {
+      const rows = rowRefs.current;
+      const spacers = spacerRefs.current;
+      const next: Cached[] = [];
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const spacer = spacers[i];
+        if (!row || !spacer) continue;
+        const rRow = row.getBoundingClientRect();
+        const rSpacer = spacer.getBoundingClientRect();
+        next.push({
+          top: rRow.top,
+          bottom: rRow.bottom,
+          spacerLeft: rSpacer.left,
+          spacerRight: rSpacer.right,
+        });
+      }
+      cache = next;
+    };
+
+    buildCache();
+
+    let current: number | null = null;
+    let rafQueued = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    const resolve = () => {
+      rafQueued = false;
+      let next: number | null = null;
+      for (let i = 0; i < cache.length; i++) {
+        const c = cache[i];
+        if (
+          lastY >= c.top &&
+          lastY <= c.bottom &&
+          lastX >= c.spacerLeft &&
+          lastX <= c.spacerRight
+        ) {
+          next = i;
+          activeSpacerRectRef.current = new DOMRect(
+            c.spacerLeft,
+            c.top,
+            c.spacerRight - c.spacerLeft,
+            c.bottom - c.top
+          );
+          break;
+        }
+      }
+
+      if (next !== current) {
+        if (current !== null) animateRowOut(current);
+        if (next !== null) animateRowIn(next);
+        current = next;
+        setActiveIndex(next);
+        if (next === null) activeSpacerRectRef.current = null;
+      }
+    };
+
+    const onMove = (e: MouseEvent) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (rafQueued) return;
+      rafQueued = true;
+      requestAnimationFrame(resolve);
+    };
+
+    const onRefresh = () => buildCache();
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("scroll", onRefresh, { passive: true });
+    window.addEventListener("resize", onRefresh);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", onRefresh);
+      window.removeEventListener("resize", onRefresh);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted]);
 
   return (
     <section
@@ -291,16 +389,13 @@ export function HomeStats() {
               {stat.label}
             </span>
 
-            {/* Hover-only zone — middle gap between label and stat.
-                Cursor inside this region triggers the floating image; cursor
-                directly over the label or stat does not. The image is
-                clamped to this zone so it can never overlap the text. */}
+            {/* Hover-zone marker — section-level pointer resolver uses this
+                element's horizontal bounds to detect when the cursor is in
+                the empty band between label and stat. */}
             <div
               ref={(el) => {
                 spacerRefs.current[i] = el;
               }}
-              onMouseEnter={() => handleEnter(i)}
-              onMouseLeave={() => handleLeave(i)}
               className="flex-1 self-stretch cursor-pointer"
               aria-hidden="true"
             />
