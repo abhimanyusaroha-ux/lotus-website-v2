@@ -524,31 +524,12 @@ export function PortfolioPage() {
             <div className="mt-2">
               <LineReveal
                 as="h1"
-                className="font-sans font-bold text-ink"
+                className="display-md font-sans text-ink"
                 stagger={0.1}
                 duration={1.1}
                 trigger="mount"
               >
-                <span
-                  style={{
-                    fontSize: "clamp(36px, 4vw, 56px)",
-                    letterSpacing: "-0.025em",
-                    lineHeight: 1.1,
-                    display: "block",
-                  }}
-                >
-                  The work,
-                </span>
-                <span
-                  style={{
-                    fontSize: "clamp(36px, 4vw, 56px)",
-                    letterSpacing: "-0.025em",
-                    lineHeight: 1.1,
-                    display: "block",
-                  }}
-                >
-                  four projects in.
-                </span>
+                The work, four projects in.
               </LineReveal>
             </div>
           </div>

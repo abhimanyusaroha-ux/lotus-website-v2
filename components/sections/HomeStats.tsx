@@ -70,6 +70,8 @@ export function HomeStats({
   const underlineRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const floatingImageRef = useRef<HTMLDivElement>(null);
+  const spacerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const activeSpacerRectRef = useRef<DOMRect | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -95,9 +97,30 @@ export function HomeStats({
     const xTo = gsap.quickTo(floating, "x", { duration: 0.6, ease: "power3.out" });
     const yTo = gsap.quickTo(floating, "y", { duration: 0.6, ease: "power3.out" });
 
+    const IMG_W = 320;
+    const IMG_H = 400;
+
     const onMove = (e: MouseEvent) => {
-      xTo(e.clientX - 160);
-      yTo(e.clientY - 200);
+      const rect = activeSpacerRectRef.current;
+      // Default: follow cursor centered on it.
+      let targetX = e.clientX - IMG_W / 2;
+      let targetY = e.clientY - IMG_H / 2;
+
+      if (rect) {
+        // Strictly clamp the image's horizontal bounds to the active spacer
+        // so it cannot cross over the label or stat number.
+        targetX = Math.max(rect.left, Math.min(rect.right - IMG_W, targetX));
+        // Center vertically within the active row so it never bleeds into
+        // the row above or below.
+        targetY = rect.top + rect.height / 2 - IMG_H / 2;
+      }
+
+      // Final viewport clamp as a safety net.
+      targetX = Math.max(16, Math.min(window.innerWidth - IMG_W - 16, targetX));
+      targetY = Math.max(16, Math.min(window.innerHeight - IMG_H - 16, targetY));
+
+      xTo(targetX);
+      yTo(targetY);
     };
 
     window.addEventListener("mousemove", onMove);
@@ -167,8 +190,7 @@ export function HomeStats({
   }, []);
 
   // ── Per-row hover effects (underline + label color) ──────────────
-  const handleEnter = (i: number) => {
-    setActiveIndex(i);
+  const animateRowIn = (i: number) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -191,7 +213,7 @@ export function HomeStats({
     }
   };
 
-  const handleLeave = (i: number) => {
+  const animateRowOut = (i: number) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const underline = underlineRefs.current[i];
     const label = labelRefs.current[i];
@@ -213,6 +235,109 @@ export function HomeStats({
       });
     }
   };
+
+  // ── Section-level pointer resolver ───────────────────────────────
+  // Replaces per-row mouseenter/leave handlers so the spacer's vertical
+  // dead zone (rows' padding band) doesn't drop the hover state.
+  // Row + spacer rects are cached and only recomputed on scroll/resize,
+  // so per-frame work in the mousemove handler stays minimal.
+  useEffect(() => {
+    if (!mounted) return;
+    if (typeof window === "undefined") return;
+    if (
+      !window.matchMedia(
+        "(min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference)"
+      ).matches
+    ) {
+      return;
+    }
+
+    type Cached = {
+      top: number;
+      bottom: number;
+      spacerLeft: number;
+      spacerRight: number;
+    };
+    let cache: Cached[] = [];
+
+    const buildCache = () => {
+      const rows = rowRefs.current;
+      const spacers = spacerRefs.current;
+      const next: Cached[] = [];
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const spacer = spacers[i];
+        if (!row || !spacer) continue;
+        const rRow = row.getBoundingClientRect();
+        const rSpacer = spacer.getBoundingClientRect();
+        next.push({
+          top: rRow.top,
+          bottom: rRow.bottom,
+          spacerLeft: rSpacer.left,
+          spacerRight: rSpacer.right,
+        });
+      }
+      cache = next;
+    };
+
+    buildCache();
+
+    let current: number | null = null;
+    let rafQueued = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    const resolve = () => {
+      rafQueued = false;
+      let next: number | null = null;
+      for (let i = 0; i < cache.length; i++) {
+        const c = cache[i];
+        if (
+          lastY >= c.top &&
+          lastY <= c.bottom &&
+          lastX >= c.spacerLeft &&
+          lastX <= c.spacerRight
+        ) {
+          next = i;
+          activeSpacerRectRef.current = new DOMRect(
+            c.spacerLeft,
+            c.top,
+            c.spacerRight - c.spacerLeft,
+            c.bottom - c.top
+          );
+          break;
+        }
+      }
+
+      if (next !== current) {
+        if (current !== null) animateRowOut(current);
+        if (next !== null) animateRowIn(next);
+        current = next;
+        setActiveIndex(next);
+        if (next === null) activeSpacerRectRef.current = null;
+      }
+    };
+
+    const onMove = (e: MouseEvent) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (rafQueued) return;
+      rafQueued = true;
+      requestAnimationFrame(resolve);
+    };
+
+    const onRefresh = () => buildCache();
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("scroll", onRefresh, { passive: true });
+    window.addEventListener("resize", onRefresh);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", onRefresh);
+      window.removeEventListener("resize", onRefresh);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted]);
 
   return (
     <section
@@ -265,9 +390,7 @@ export function HomeStats({
             ref={(el) => {
               rowRefs.current[i] = el;
             }}
-            onMouseEnter={() => handleEnter(i)}
-            onMouseLeave={() => handleLeave(i)}
-            className={`relative flex justify-between items-baseline py-8 cursor-pointer border-t border-gray-200 ${
+            className={`relative flex items-baseline py-8 border-t border-gray-200 ${
               i === stats.length - 1 ? "border-b" : ""
             }`}
           >
@@ -279,6 +402,18 @@ export function HomeStats({
             >
               {stat.label}
             </span>
+
+            {/* Hover-zone marker — section-level pointer resolver uses this
+                element's horizontal bounds to detect when the cursor is in
+                the empty band between label and stat. */}
+            <div
+              ref={(el) => {
+                spacerRefs.current[i] = el;
+              }}
+              className="flex-1 self-stretch cursor-pointer"
+              aria-hidden="true"
+            />
+
             <span
               className="font-sans font-bold text-ink"
               style={{

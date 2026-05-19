@@ -160,8 +160,8 @@ export function InvestorContent() {
           <div className="max-w-[380px] max-[768px]:mx-auto max-[768px]:text-center">
             <h1
               ref={headingRef}
-              className="font-sans font-bold text-ink"
-              style={{ fontSize: "40px", lineHeight: 1.1, letterSpacing: "-0.02em", opacity: 0 }}
+              className="display-md font-sans text-ink"
+              style={{ opacity: 0 }}
             >
               Investor portal
             </h1>

@@ -78,6 +78,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${cinzel.variable} ${instrumentSerif.variable}`}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=switzer@200,300,400,500,600,700,800,900&display=swap"
+        />
+      </head>
       <body className="bg-canvas text-ink antialiased">
         <SmoothScroll />
         <ScrollToTop />
