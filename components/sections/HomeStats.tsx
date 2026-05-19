@@ -8,52 +8,62 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import LineReveal from "../LineReveal";
 import { Counter } from "../Counter";
 import { projects } from "@/data/projects";
+import type { HomeStatsContent } from "@/lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type Stat = {
-  label: string;
-  target: number;
-  suffix?: string;
-  imageSrc: string;
-  imageAlt: string;
-};
 
 const fulton = projects.find((p) => p.slug === "fulton-district-mixed-use");
 const logan = projects.find((p) => p.slug === "logan-square-multifamily");
 const westLoop = projects.find((p) => p.slug === "west-loop-value-add");
 const wicker = projects.find((p) => p.slug === "wicker-park-residential");
 
-const stats: Stat[] = [
-  {
-    label: "Projects completed since 2023",
-    target: 4,
-    imageSrc: fulton?.heroImage.src ?? "",
-    imageAlt: fulton?.heroImage.alt ?? "",
-  },
-  {
-    label: "Currently in pre-development",
-    target: 5,
-    imageSrc: logan?.heroImage.src ?? "",
-    imageAlt: logan?.heroImage.alt ?? "",
-  },
-  {
-    label: "Average response time on opportunities",
-    target: 48,
-    suffix: " hrs",
-    imageSrc: westLoop?.heroImage.src ?? "",
-    imageAlt: westLoop?.heroImage.alt ?? "",
-  },
-  {
-    label: "Of investor capital deployed on schedule",
-    target: 100,
-    suffix: "%",
-    imageSrc: wicker?.heroImage.src ?? "",
-    imageAlt: wicker?.heroImage.alt ?? "",
-  },
-];
+const DEFAULT_CONTENT: HomeStatsContent = {
+  eyebrow: "The Numbers",
+  heading: "What two years has built.",
+  intro:
+    "The numbers below aren't ambitious targets. They're what we've actually done since starting the firm. We share them because they say more about how we work than any tagline could.",
+  stats: [
+    {
+      label: "Projects completed since 2023",
+      target: 4,
+      image: {
+        src: fulton?.heroImage.src ?? "",
+        alt: fulton?.heroImage.alt ?? "",
+      },
+    },
+    {
+      label: "Currently in pre-development",
+      target: 5,
+      image: {
+        src: logan?.heroImage.src ?? "",
+        alt: logan?.heroImage.alt ?? "",
+      },
+    },
+    {
+      label: "Average response time on opportunities",
+      target: 48,
+      suffix: " hrs",
+      image: {
+        src: westLoop?.heroImage.src ?? "",
+        alt: westLoop?.heroImage.alt ?? "",
+      },
+    },
+    {
+      label: "Of investor capital deployed on schedule",
+      target: 100,
+      suffix: "%",
+      image: {
+        src: wicker?.heroImage.src ?? "",
+        alt: wicker?.heroImage.alt ?? "",
+      },
+    },
+  ],
+};
 
-export function HomeStats() {
+export function HomeStats({
+  content = DEFAULT_CONTENT,
+}: { content?: HomeStatsContent } = {}) {
+  const stats = content.stats;
   const sectionRef = useRef<HTMLElement>(null);
   const eyebrowRef = useRef<HTMLParagraphElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -211,12 +221,14 @@ export function HomeStats() {
       onMouseLeave={() => setActiveIndex(null)}
       className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6 relative"
     >
-      <p
-        ref={eyebrowRef}
-        className="caption font-sans text-gray-600 uppercase tracking-[0.12em]"
-      >
-        The Numbers
-      </p>
+      {content.eyebrow && (
+        <p
+          ref={eyebrowRef}
+          className="caption font-sans text-gray-600 uppercase tracking-[0.12em]"
+        >
+          {content.eyebrow}
+        </p>
+      )}
 
       <div className="mt-24 max-[640px]:mt-16 grid grid-cols-12 gap-x-12 gap-y-8 items-end max-[1024px]:grid-cols-1 max-[1024px]:items-start">
         <div className="col-span-7 max-[1024px]:col-span-1 max-w-[640px]">
@@ -226,21 +238,23 @@ export function HomeStats() {
             stagger={0.08}
             duration={1.0}
           >
-            What two years has built.
+            {content.heading}
           </LineReveal>
         </div>
 
-        <div className="col-span-5 max-[1024px]:col-span-1 max-w-[420px] justify-self-end max-[1024px]:justify-self-start">
-          <LineReveal
-            as="p"
-            className="body-md font-sans font-light text-ink-muted"
-            stagger={0.05}
-            duration={0.9}
-            delay={0.4}
-          >
-            The numbers below aren&apos;t ambitious targets. They&apos;re what we&apos;ve actually done since starting the firm. We share them because they say more about how we work than any tagline could.
-          </LineReveal>
-        </div>
+        {content.intro && (
+          <div className="col-span-5 max-[1024px]:col-span-1 max-w-[420px] justify-self-end max-[1024px]:justify-self-start">
+            <LineReveal
+              as="p"
+              className="body-md font-sans font-light text-ink-muted"
+              stagger={0.05}
+              duration={0.9}
+              delay={0.4}
+            >
+              {content.intro}
+            </LineReveal>
+          </div>
+        )}
       </div>
 
       {/* Desktop: vertical list with cursor-follow image */}
@@ -338,8 +352,8 @@ export function HomeStats() {
                 }`}
               >
                 <Image
-                  src={stat.imageSrc}
-                  alt={stat.imageAlt}
+                  src={stat.image.src}
+                  alt={stat.image.alt}
                   fill
                   sizes="320px"
                   className="object-cover"

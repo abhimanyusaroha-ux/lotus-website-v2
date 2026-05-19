@@ -8,53 +8,70 @@ import { SectionMarker } from "../SectionMarker";
 import { PillButton } from "../PillButton";
 import { TextButton } from "../TextButton";
 import LineReveal from "../LineReveal";
+import type { PortfolioContent } from "@/lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const properties = [
-  {
-    id: "01",
-    slug: "fulton-district-mixed-use",
-    name: "Fulton District Mixed-Use",
-    location: "Completed · Fulton Market, Chicago",
-    description:
-      "We acquired this property in 2023, modernized the systems, and re-tenanted the ground floor with operators who fit the neighborhood.",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80",
-    alt: "Fulton District mixed-use project, Fulton Market, Chicago",
-  },
-  {
-    id: "02",
-    slug: "logan-square-multifamily",
-    name: "Logan Square Multifamily",
-    location: "Completed · Logan Square, Chicago",
-    description:
-      "Twenty-four residential units we bought off-market and brought to ninety-six percent occupancy within sixty days.",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80",
-    alt: "Logan Square multifamily development, Chicago",
-  },
-  {
-    id: "03",
-    slug: "west-loop-value-add",
-    name: "West Loop Value-Add",
-    location: "Completed · West Loop, Chicago",
-    description:
-      "A ground-up reposition of an industrial building we took down to the structure and built back as mixed-use loft residential.",
-    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=80",
-    alt: "West Loop value-add acquisition, Chicago",
-  },
-  {
-    id: "04",
-    slug: "wicker-park-residential",
-    name: "Wicker Park Residential",
-    location: "Completed · Wicker Park, Chicago",
-    description:
-      "Nine residential units we renovated while preserving the original masonry, and sold to a long-term hold partner.",
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
-    alt: "Wicker Park residential project, Chicago",
-  },
-];
+const DEFAULT_CONTENT: PortfolioContent = {
+  heading: "The work, project by project.",
+  intro:
+    "A snapshot of the four projects we've taken from acquisition through completion. Each one taught us something we've carried into the next.",
+  properties: [
+    {
+      displayId: "01",
+      slug: "fulton-district-mixed-use",
+      name: "Fulton District Mixed-Use",
+      location: "Completed · Fulton Market, Chicago",
+      description:
+        "We acquired this property in 2023, modernized the systems, and re-tenanted the ground floor with operators who fit the neighborhood.",
+      image: {
+        src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80",
+        alt: "Fulton District mixed-use project, Fulton Market, Chicago",
+      },
+    },
+    {
+      displayId: "02",
+      slug: "logan-square-multifamily",
+      name: "Logan Square Multifamily",
+      location: "Completed · Logan Square, Chicago",
+      description:
+        "Twenty-four residential units we bought off-market and brought to ninety-six percent occupancy within sixty days.",
+      image: {
+        src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80",
+        alt: "Logan Square multifamily development, Chicago",
+      },
+    },
+    {
+      displayId: "03",
+      slug: "west-loop-value-add",
+      name: "West Loop Value-Add",
+      location: "Completed · West Loop, Chicago",
+      description:
+        "A ground-up reposition of an industrial building we took down to the structure and built back as mixed-use loft residential.",
+      image: {
+        src: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=80",
+        alt: "West Loop value-add acquisition, Chicago",
+      },
+    },
+    {
+      displayId: "04",
+      slug: "wicker-park-residential",
+      name: "Wicker Park Residential",
+      location: "Completed · Wicker Park, Chicago",
+      description:
+        "Nine residential units we renovated while preserving the original masonry, and sold to a long-term hold partner.",
+      image: {
+        src: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
+        alt: "Wicker Park residential project, Chicago",
+      },
+    },
+  ],
+};
 
-export function Portfolio() {
+export function Portfolio({
+  content = DEFAULT_CONTENT,
+}: { content?: PortfolioContent } = {}) {
+  const properties = content.properties;
   const sliderSectionRef = useRef<HTMLDivElement>(null);
   const slideImgRefs = useRef<(HTMLDivElement | null)[]>([]);
   const slideTextGroupRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -194,16 +211,18 @@ export function Portfolio() {
             stagger={0.08}
             duration={1.0}
           >
-            The work, project by project.
+            {content.heading}
           </LineReveal>
-          <LineReveal
-            as="p"
-            className="body-lg font-sans text-gray-600 mt-6"
-            stagger={0.05}
-            duration={0.9}
-          >
-            A snapshot of the four projects we've taken from acquisition through completion. Each one taught us something we've carried into the next.
-          </LineReveal>
+          {content.intro && (
+            <LineReveal
+              as="p"
+              className="body-lg font-sans text-gray-600 mt-6"
+              stagger={0.05}
+              duration={0.9}
+            >
+              {content.intro}
+            </LineReveal>
+          )}
         </div>
       </div>
 
@@ -216,7 +235,7 @@ export function Portfolio() {
         <div className="sticky top-0 h-screen overflow-hidden bg-canvas">
           {/* Slides stacked; z-index set by JS; only outgoing is clip-animated */}
           {properties.map((property, i) => (
-            <div key={property.id} className="absolute inset-0 grid grid-cols-2">
+            <div key={property.displayId} className="absolute inset-0 grid grid-cols-2">
 
               {/* Left: image — clip-path collapses outgoing, incoming sits beneath */}
               <div
@@ -224,9 +243,9 @@ export function Portfolio() {
                 className="relative h-full overflow-hidden"
               >
                 <Image
-                  src={property.image}
+                  src={property.image.src}
                   fill
-                  alt={property.alt}
+                  alt={property.image.alt}
                   className="object-cover"
                   priority={i === 0}
                   sizes="50vw"
@@ -285,15 +304,15 @@ export function Portfolio() {
       {/* ── Mobile fallback: vertical stack ─────────────────────────── */}
       <div className="lg:hidden px-12 max-[640px]:px-6 pb-24 max-[640px]:pb-16 space-y-14">
         {properties.map((property) => (
-          <div key={property.id}>
+          <div key={property.displayId}>
             <div
               className="relative w-full overflow-hidden"
               style={{ aspectRatio: "4/5" }}
             >
               <Image
-                src={property.image}
+                src={property.image.src}
                 fill
-                alt={property.alt}
+                alt={property.image.alt}
                 className="object-cover"
                 sizes="100vw"
               />

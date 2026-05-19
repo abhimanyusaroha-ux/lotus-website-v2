@@ -7,10 +7,31 @@ import { SectionMarker } from "../SectionMarker";
 import { EditorialImage } from "../EditorialImage";
 import { TextButton } from "../TextButton";
 import LineReveal from "../LineReveal";
+import type { AboutContent } from "@/lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function About() {
+const DEFAULT_CONTENT: AboutContent = {
+  heading: "Real estate, but built like a business we want to keep.",
+  paragraph1:
+    "Lotus started in 2023 with a thesis that Chicago's middle market was being passed over by serious capital. The big institutional players were chasing larger deals. The small operators didn't have the discipline to underwrite carefully. We saw a gap, and we set out to fill it with a firm that takes both the analysis and the buildings seriously.",
+  paragraph2:
+    "Two years in, we've completed four projects and have five more in active pre-development. Every one of them was chosen for the same three reasons: the location made sense for the long term, the deal was structured fairly, and we believed we could improve the asset through active management.",
+  ctaLabel: "Read our approach",
+  ctaHref: "/about",
+  image1: {
+    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+    alt: "River North mixed-use project, Chicago, 2024",
+    caption: "River North Mixed-Use · Chicago, 2024",
+  },
+  image2: {
+    src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80",
+    alt: "Logan Square development project, Chicago, 2023",
+    caption: "Logan Square Development · Chicago, 2023",
+  },
+};
+
+export function About({ content = DEFAULT_CONTENT }: { content?: AboutContent } = {}) {
   const img1Ref = useRef<HTMLDivElement>(null);
   const img2Ref = useRef<HTMLDivElement>(null);
 
@@ -53,7 +74,7 @@ export function About() {
           stagger={0.1}
           duration={1.1}
         >
-          Real estate, but built like a business we want to keep.
+          {content.heading}
         </LineReveal>
       </div>
 
@@ -66,19 +87,23 @@ export function About() {
             stagger={0.05}
             duration={0.9}
           >
-            Lotus started in 2023 with a thesis that Chicago's middle market was being passed over by serious capital. The big institutional players were chasing larger deals. The small operators didn't have the discipline to underwrite carefully. We saw a gap, and we set out to fill it with a firm that takes both the analysis and the buildings seriously.
+            {content.paragraph1}
           </LineReveal>
-          <LineReveal
-            as="p"
-            className="body-lg font-sans text-gray-600 max-w-[560px] mt-6"
-            stagger={0.05}
-            duration={0.9}
-          >
-            Two years in, we've completed four projects and have five more in active pre-development. Every one of them was chosen for the same three reasons: the location made sense for the long term, the deal was structured fairly, and we believed we could improve the asset through active management.
-          </LineReveal>
-          <div className="mt-8">
-            <TextButton href="/about">Read our approach</TextButton>
-          </div>
+          {content.paragraph2 && (
+            <LineReveal
+              as="p"
+              className="body-lg font-sans text-gray-600 max-w-[560px] mt-6"
+              stagger={0.05}
+              duration={0.9}
+            >
+              {content.paragraph2}
+            </LineReveal>
+          )}
+          {content.ctaLabel && content.ctaHref && (
+            <div className="mt-8">
+              <TextButton href={content.ctaHref}>{content.ctaLabel}</TextButton>
+            </div>
+          )}
         </div>
       </div>
 
@@ -90,10 +115,10 @@ export function About() {
           style={{ overflow: "hidden" }}
         >
           <EditorialImage
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80"
-            caption="River North Mixed-Use · Chicago, 2024"
+            src={content.image1.src}
+            caption={content.image1.caption ?? ""}
             aspectRatio="4/5"
-            alt="River North mixed-use project, Chicago, 2024"
+            alt={content.image1.alt}
           />
         </div>
         <div
@@ -102,10 +127,10 @@ export function About() {
           style={{ overflow: "hidden" }}
         >
           <EditorialImage
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80"
-            caption="Logan Square Development · Chicago, 2023"
+            src={content.image2.src}
+            caption={content.image2.caption ?? ""}
             aspectRatio="4/5"
-            alt="Logan Square development project, Chicago, 2023"
+            alt={content.image2.alt}
           />
         </div>
       </div>

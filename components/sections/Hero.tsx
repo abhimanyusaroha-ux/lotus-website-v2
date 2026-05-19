@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import LineReveal from "../LineReveal";
 import { SectionMarker } from "../SectionMarker";
+import type { HeroContent } from "@/lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ type HeroProps = {
   fontDescription?: string;
   wordmarkClassName?: string;
   wordmarkStyle?: CSSProperties;
+  content?: HeroContent;
 };
 
 const defaultWordmarkStyle: CSSProperties = {
@@ -22,11 +24,25 @@ const defaultWordmarkStyle: CSSProperties = {
   letterSpacing: "-0.055em",
 };
 
+const DEFAULT_CONTENT: HeroContent = {
+  wordmark: "Lotus",
+  subtitle: "Est. 2023 · Chicago, IL",
+  paragraph1:
+    "We're a real estate investment firm based in Chicago. We acquire, develop, and operate residential and mixed-use properties in the parts of the city we believe in for the long run.",
+  paragraph2:
+    "Our work is slow on purpose. We underwrite carefully, hold longer than the spreadsheet says we should, and build relationships that outlast any single deal.",
+  heroImage: {
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=80",
+    alt: "Lotus Property Group — Chicago real estate investment",
+  },
+};
+
 export function Hero({
   fontLabel,
   fontDescription,
   wordmarkClassName = "font-black",
   wordmarkStyle,
+  content = DEFAULT_CONTENT,
 }: HeroProps = {}) {
   const wordmarkMaskRef = useRef<HTMLDivElement>(null);
   const wordmarkInnerRef = useRef<HTMLDivElement>(null);
@@ -117,16 +133,18 @@ export function Hero({
             ref={wordmarkInnerRef}
             className={`font-sans text-ink ${wordmarkClassName}`}
             style={{ ...defaultWordmarkStyle, ...wordmarkStyle }}
-            aria-label="Lotus"
+            aria-label={content.wordmark}
           >
-            Lotus
+            {content.wordmark}
           </div>
         </div>
 
         {/* Subtitle */}
-        <p className="body-sm font-sans text-gray-400 mt-4 tracking-[0.06em] uppercase">
-          Est. 2023 · Chicago, IL
-        </p>
+        {content.subtitle && (
+          <p className="body-sm font-sans text-gray-400 mt-4 tracking-[0.06em] uppercase">
+            {content.subtitle}
+          </p>
+        )}
 
         {/* Body copy row — line-reveal on scroll (delay 0.6s after mount) */}
         <div className="mt-8 flex gap-20 max-[768px]:flex-col max-[768px]:gap-4">
@@ -138,18 +156,20 @@ export function Hero({
             stagger={0.06}
             duration={0.9}
           >
-            We're a real estate investment firm based in Chicago. We acquire, develop, and operate residential and mixed-use properties in the parts of the city we believe in for the long run.
+            {content.paragraph1}
           </LineReveal>
-          <LineReveal
-            as="p"
-            className="body-lg font-sans text-gray-600 max-w-[340px]"
-            trigger="mount"
-            delay={0.72}
-            stagger={0.06}
-            duration={0.9}
-          >
-            Our work is slow on purpose. We underwrite carefully, hold longer than the spreadsheet says we should, and build relationships that outlast any single deal.
-          </LineReveal>
+          {content.paragraph2 && (
+            <LineReveal
+              as="p"
+              className="body-lg font-sans text-gray-600 max-w-[340px]"
+              trigger="mount"
+              delay={0.72}
+              stagger={0.06}
+              duration={0.9}
+            >
+              {content.paragraph2}
+            </LineReveal>
+          )}
         </div>
 
       </div>
@@ -166,9 +186,9 @@ export function Hero({
           style={{ transformOrigin: "center" }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=80"
+            src={content.heroImage.src}
             fill
-            alt="Lotus Property Group — Chicago real estate investment"
+            alt={content.heroImage.alt}
             className="object-cover"
             priority
             sizes="100vw"

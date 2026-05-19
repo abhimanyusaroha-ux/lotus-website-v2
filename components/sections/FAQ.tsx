@@ -7,36 +7,44 @@ import { SectionMarker } from "../SectionMarker";
 import { TextButton } from "../TextButton";
 import { PillButton } from "../PillButton";
 import LineReveal from "../LineReveal";
+import type { FaqContent } from "@/lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const faqs = [
-  {
-    question: "How does Lotus pick the projects it takes on?",
-    answer:
-      "We look at every opportunity through four lenses: the quality of the location over a ten-year horizon, the architecture or development potential, the condition of the asset and what it would take to improve, and finally the circumstances of the deal itself. In a typical year, we say yes to about one in fifteen properties we look at seriously.",
-  },
-  {
-    question: "Where do you operate?",
-    answer:
-      "We focus on Chicago, with most of our work concentrated in West Loop, Fulton Market, Logan Square, Wicker Park, and River North. We expect to expand carefully into one or two adjacent markets over the next several years, but only when we've found the right operating partner and the right deal flow.",
-  },
-  {
-    question: "What's the minimum investment?",
-    answer:
-      "Our typical co-investment is $100,000 per deal, though some opportunities have higher minimums depending on size and structure. Every investor needs to qualify as accredited under SEC Regulation D before participating.",
-  },
-  {
-    question: "How do investors track their investments?",
-    answer:
-      "After your first deal closes, you get login credentials to our investor portal. From there, you can pull quarterly reports, K-1 documents, capital call notices, wire instructions, and current performance summaries any time. We also send a written update at the end of each quarter.",
-  },
-  {
-    question: "Do you look at deals from outside brokers and owners?",
-    answer:
-      "Yes, and we're genuinely open to off-market submissions. If you have a property you think fits how we work, send us the details through the contact page. We respond to every qualified submission within forty-eight hours, even when the answer is no.",
-  },
-];
+const DEFAULT_CONTENT: FaqContent = {
+  marker: "Frequently Asked",
+  heading: "Things people ask before they invest.",
+  items: [
+    {
+      question: "How does Lotus pick the projects it takes on?",
+      answer:
+        "We look at every opportunity through four lenses: the quality of the location over a ten-year horizon, the architecture or development potential, the condition of the asset and what it would take to improve, and finally the circumstances of the deal itself. In a typical year, we say yes to about one in fifteen properties we look at seriously.",
+    },
+    {
+      question: "Where do you operate?",
+      answer:
+        "We focus on Chicago, with most of our work concentrated in West Loop, Fulton Market, Logan Square, Wicker Park, and River North. We expect to expand carefully into one or two adjacent markets over the next several years, but only when we've found the right operating partner and the right deal flow.",
+    },
+    {
+      question: "What's the minimum investment?",
+      answer:
+        "Our typical co-investment is $100,000 per deal, though some opportunities have higher minimums depending on size and structure. Every investor needs to qualify as accredited under SEC Regulation D before participating.",
+    },
+    {
+      question: "How do investors track their investments?",
+      answer:
+        "After your first deal closes, you get login credentials to our investor portal. From there, you can pull quarterly reports, K-1 documents, capital call notices, wire instructions, and current performance summaries any time. We also send a written update at the end of each quarter.",
+    },
+    {
+      question: "Do you look at deals from outside brokers and owners?",
+      answer:
+        "Yes, and we're genuinely open to off-market submissions. If you have a property you think fits how we work, send us the details through the contact page. We respond to every qualified submission within forty-eight hours, even when the answer is no.",
+    },
+  ],
+  footerText: "If yours isn't here, we usually reply within a business day.",
+  ctaLabel: "Contact our team",
+  ctaHref: "/contact",
+};
 
 function AccordionItem({
   question,
@@ -97,7 +105,10 @@ function AccordionItem({
   );
 }
 
-export function FAQ() {
+export function FAQ({
+  content = DEFAULT_CONTENT,
+}: { content?: FaqContent } = {}) {
+  const faqs = content.items;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const itemsRef = useRef<HTMLDivElement>(null);
 
@@ -127,7 +138,7 @@ export function FAQ() {
       id="faq"
       className="py-[100px] max-[640px]:py-16 max-w-[1440px] mx-auto px-[120px] max-[1024px]:px-12 max-[640px]:px-6"
     >
-      <SectionMarker label="Frequently Asked" />
+      <SectionMarker label={content.marker ?? "Frequently Asked"} />
 
       {/* Title row */}
       <div className="mt-12">
@@ -137,7 +148,7 @@ export function FAQ() {
           stagger={0.08}
           duration={1.0}
         >
-          Things people ask before they invest.
+          {content.heading}
         </LineReveal>
       </div>
 
@@ -159,12 +170,18 @@ export function FAQ() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="mt-28 max-[640px]:mt-16 flex flex-col items-center gap-5">
-        <p className="body-md font-sans text-gray-600 text-center">
-          If yours isn't here, we usually reply within a business day.
-        </p>
-        <PillButton href="/contact">Contact our team</PillButton>
-      </div>
+      {(content.footerText || content.ctaLabel) && (
+        <div className="mt-28 max-[640px]:mt-16 flex flex-col items-center gap-5">
+          {content.footerText && (
+            <p className="body-md font-sans text-gray-600 text-center">
+              {content.footerText}
+            </p>
+          )}
+          {content.ctaLabel && content.ctaHref && (
+            <PillButton href={content.ctaHref}>{content.ctaLabel}</PillButton>
+          )}
+        </div>
+      )}
     </section>
   );
 }

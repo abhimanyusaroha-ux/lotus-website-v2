@@ -4,16 +4,19 @@ import { Portfolio } from "@/components/sections/Portfolio";
 import { HomeStats } from "@/components/sections/HomeStats";
 import { Investors } from "@/components/sections/Investors";
 import { FAQ } from "@/components/sections/FAQ";
+import { getHomePage } from "@/lib/strapi";
 
-export default function Home() {
+export default async function Home() {
+  const content = await getHomePage();
+
   return (
     <main>
-      <Hero />
-      <About />
-      <Portfolio />
-      <HomeStats />
-      <Investors />
-      <FAQ />
+      <Hero content={content?.hero} />
+      <About content={content?.about} />
+      <Portfolio content={content?.portfolio} />
+      <HomeStats content={content?.homeStats} />
+      <Investors content={content?.investors} />
+      <FAQ content={content?.faq} />
     </main>
   );
 }
