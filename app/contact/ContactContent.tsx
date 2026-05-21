@@ -267,10 +267,10 @@ export function ContactContent() {
               <hr className="border-t-[0.5px] border-gray-200 mt-12 mb-8" />
               <div className="flex flex-col gap-2">
                 <a
-                  href="mailto:hello@lotuspropertygroup.com"
+                  href="mailto:rentlotuspropertygroupllc@gmail.com"
                   className="body-sm font-sans text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all w-fit"
                 >
-                  hello@lotuspropertygroup.com
+                  rentlotuspropertygroupllc@gmail.com
                 </a>
                 <p className="body-sm font-sans text-gray-600">
                   Chicago, IL

@@ -10,6 +10,7 @@ export function InvestorContent() {
   const [submitted, setSubmitted] = useState(false);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -152,6 +153,17 @@ export function InvestorContent() {
     }
   }, [submitted]);
 
+  useEffect(() => {
+    if (showLogin && formRef.current) {
+      const fields = [emailFieldRef.current, passwordFieldRef.current, submitGroupRef.current];
+      gsap.fromTo(
+        fields,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.1 }
+      );
+    }
+  }, [showLogin]);
+
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-canvas relative">
       <div className="w-full md:w-[55%] xl:w-1/2 flex flex-col justify-start pt-[120px] pb-12 min-[768px]:pt-[140px] min-[768px]:pb-[64px] pl-[max(120px,calc((100vw-1440px)/2+120px))] max-[1024px]:!pl-12 max-[640px]:!px-6 pr-[64px] max-[1024px]:pr-12">
@@ -175,17 +187,20 @@ export function InvestorContent() {
             </p>
 
             <div className="mt-12 min-h-[300px]">
-              {/* Coming soon message — login form temporarily disabled. Restore by setting this to `false`. */}
-              {true ? (
+              {!showLogin ? (
                 <div>
-                  <p className="body-sm font-sans font-normal text-ink-muted">
-                    Coming soon.
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowLogin(true)}
+                    className="inline-flex items-center justify-center rounded-full bg-ink text-canvas font-sans font-medium tracking-[0.02em] h-[52px] px-10 body-sm hover:bg-ink-muted transition-colors duration-150"
+                  >
+                    Login
+                  </button>
                 </div>
               ) : submitted ? (
                 <div id="post-submit-message" style={{ opacity: 0 }}>
                   <p className="body-sm font-sans font-normal text-ink-muted">
-                    This portal is currently in development. If you're a current investor and need access to your documents, please contact us at <a href="mailto:hello@lotuspropertygroup.com" className="text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all">hello@lotuspropertygroup.com</a> and we'll send them directly.
+                    This portal is currently in development. If you're a current investor and need access to your documents, please contact us at <a href="mailto:rentlotuspropertygroupllc@gmail.com" className="text-ink underline underline-offset-2 decoration-[1px] hover:decoration-2 transition-all">rentlotuspropertygroupllc@gmail.com</a> and we'll send them directly.
                   </p>
                   <button 
                     onClick={() => {

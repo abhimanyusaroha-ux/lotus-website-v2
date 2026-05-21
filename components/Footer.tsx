@@ -38,10 +38,10 @@ export function Footer() {
 
           <div className="flex flex-col gap-1 max-[640px]:items-start">
             <a
-              href="mailto:hello@lotuspropertygroup.com"
+              href="mailto:rentlotuspropertygroupllc@gmail.com"
               className="body-sm font-sans text-ink hover:text-gray-600 transition-colors duration-200"
             >
-              hello@lotuspropertygroup.com
+              rentlotuspropertygroupllc@gmail.com
             </a>
             <p className="body-sm font-sans text-gray-400">Chicago, IL</p>
           </div>
@@ -55,7 +55,7 @@ export function Footer() {
           <div className="flex items-start gap-3">
             <LotusLogoMark size={16} className="text-gray-400 flex-shrink-0 mt-[2px]" />
             <p className="body-sm font-sans text-gray-400">
-              A Chicago real estate investment firm. Founded 2023.
+              A Chicago real estate investment firm. Founded 2026.
             </p>
           </div>
           <div className="flex items-center gap-5 flex-shrink-0">
